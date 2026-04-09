@@ -1,0 +1,1 @@
+// View Patient JS will be implemented here

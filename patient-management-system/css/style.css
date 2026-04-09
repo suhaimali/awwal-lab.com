@@ -1,0 +1,5 @@
+body { background: #f8fafc; }
+.card { border-radius: 1rem; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
+.table { border-radius: 0.5rem; overflow: hidden; }
+.btn { border-radius: 0.5rem; }
+.navbar { border-radius: 0 0 1rem 1rem; }
