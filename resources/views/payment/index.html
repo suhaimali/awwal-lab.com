@@ -1,0 +1,62 @@
+<!-- index.html - Payment Page UI with modern design, dark mode, and all required features -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinic Payment - EMR</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+</head>
+<body>
+  <button class="toggle-dark" onclick="toggleDarkMode()">🌙</button>
+  <div class="card">
+    <h2>Clinic Payment</h2>
+    <form id="paymentForm">
+      <label for="patientName">Patient Name</label>
+      <input class="input" type="text" id="patientName" name="patientName" required autocomplete="off">
+      <label for="patientId">Patient ID</label>
+      <input class="input" type="text" id="patientId" name="patientId" required>
+      <label for="appointmentId">Appointment ID</label>
+      <input class="input" type="text" id="appointmentId" name="appointmentId">
+      <label for="amount">Payment Amount</label>
+      <input class="input" type="number" id="amount" name="amount" required min="0" step="0.01">
+      <label for="paymentMethod">Payment Method</label>
+      <select class="input" id="paymentMethod" name="paymentMethod" required>
+        <option value="">Select</option>
+        <option value="UPI">UPI</option>
+        <option value="QR Code">QR Code</option>
+        <option value="Cash">Cash</option>
+        <option value="Card">Card</option>
+      </select>
+      <div id="upiSection" style="display:none;">
+        <label for="upiId">UPI ID</label>
+        <input class="input" type="text" id="upiId" name="upiId" placeholder="clinic@upi">
+      </div>
+      <div id="qrSection" style="display:none;">
+        <label>QR Code</label>
+        <canvas id="qrCanvas"></canvas>
+      </div>
+      <label for="status">Payment Status</label>
+      <select class="input" id="status" name="status" required>
+        <option value="Paid">Paid</option>
+        <option value="Pending">Pending</option>
+        <option value="Failed">Failed</option>
+      </select>
+      <label for="notes">Notes</label>
+      <textarea class="input" id="notes" name="notes" rows="2"></textarea>
+      <button class="btn" type="submit" id="payBtn">Pay Now</button>
+    </form>
+    <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" class="success-animation" id="successAnim" alt="Success">
+    <div id="message"></div>
+    <button class="btn" id="downloadReceipt" style="display:none;">Download Receipt (PDF)</button>
+    <button class="btn" id="shareWhatsapp" style="display:none;">Share via WhatsApp</button>
+    <button class="btn" id="sendEmail" style="display:none;">Send Email Receipt</button>
+  </div>
+  <script src="firebase.js"></script>
+  <script src="receipt.js"></script>
+  <script src="js/payment-page.js"></script>
+</body>
+</html>

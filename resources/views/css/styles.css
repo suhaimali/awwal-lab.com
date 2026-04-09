@@ -1,0 +1,80 @@
+/* styles.css - Modern, responsive, medical theme with dark mode */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(120deg, #f0f4f8 0%, #e0e7ef 100%);
+  color: #222;
+  margin: 0;
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+.dark-mode {
+  background: #181f2a;
+  color: #f0f4f8;
+}
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(6,182,212,0.10);
+  padding: 2rem;
+  margin: 1rem auto;
+  max-width: 500px;
+  transition: background 0.3s, color 0.3s;
+}
+.dark-mode .card {
+  background: #232b3e;
+  color: #f0f4f8;
+}
+.btn {
+  background: linear-gradient(90deg,#a78bfa,#f472b6);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:hover {
+  background: linear-gradient(90deg,#f472b6,#a78bfa);
+}
+.input, select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #a78bfa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+label {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+.success-animation {
+  display: none;
+  margin: 1rem auto;
+  width: 80px;
+  height: 80px;
+}
+.success-animation.active {
+  display: block;
+}
+.toggle-dark {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #232b3e;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1000;
+}
+@media (max-width: 600px) {
+  .card { padding: 1rem; }
+  .btn, .input, select { font-size: 0.95rem; }
+}
