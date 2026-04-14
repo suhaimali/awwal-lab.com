@@ -7,13 +7,13 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('patients', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('address');
-            $table->timestamps();
-        });
+        // Schema::create('patients', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->string('phone');
+        //     $table->string('address');
+        //     $table->timestamps();
+        // });
     }
     public function down(): void
     {

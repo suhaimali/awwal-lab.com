@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('bookings', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
-            $table->foreignId('test_id')->constrained('tests')->onDelete('cascade');
-            $table->date('date');
-            $table->time('time');
-            $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');
-            $table->timestamps();
-        });
+        // Schema::create('bookings', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
+        //     $table->foreignId('test_id')->constrained('tests')->onDelete('cascade');
+        //     $table->date('date');
+        //     $table->time('time');
+        //     $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');
+        //     $table->timestamps();
+        // });
     }
     public function down(): void
     {

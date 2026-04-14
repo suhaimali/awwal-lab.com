@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('patients', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-            $table->integer('age')->nullable();
-            $table->enum('gender', ['male', 'female', 'other'])->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('patients', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->string('phone')->nullable();
+        //     $table->string('email')->nullable();
+        //     $table->integer('age')->nullable();
+        //     $table->enum('gender', ['male', 'female', 'other'])->nullable();
+        //     $table->timestamps();
+        // });
     }
     public function down(): void
     {

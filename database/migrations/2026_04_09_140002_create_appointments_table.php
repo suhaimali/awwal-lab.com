@@ -7,13 +7,13 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('appointments', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
-            $table->dateTime('appointment_date');
-            $table->string('status')->default('Scheduled');
-            $table->timestamps();
-        });
+        // Schema::create('appointments', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
+        //     $table->dateTime('appointment_date');
+        //     $table->string('status')->default('Scheduled');
+        //     $table->timestamps();
+        // });
     }
     public function down(): void
     {

@@ -12,7 +12,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
             $table->decimal('amount', 10, 2);
-            $table->date('payment_date');
+            $table->string('payment_method');
+            $table->enum('payment_status', ['Paid', 'Pending', 'Failed'])->default('Pending');
+            $table->string('transaction_id')->nullable();
+            $table->date('payment_date')->nullable();
             $table->timestamps();
         });
     }
