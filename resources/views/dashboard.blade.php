@@ -59,6 +59,9 @@
                         <a href="{{ route('patients.dashboard') }}" class="text-blue-700">Dashboard</a>
                         <a href="{{ route('patients.index') }}" class="text-blue-700">Patient List</a>
                         <a href="{{ route('patients.create') }}" class="text-blue-700">Add Patient</a>
+                        @if(auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.bookings.create') }}" class="text-blue-700">Book Lab (Admin)</a>
+                        @endif
                     </nav>
                 </div>
             </div>

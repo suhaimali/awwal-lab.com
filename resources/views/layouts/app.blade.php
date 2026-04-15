@@ -380,7 +380,7 @@
                 <div class="fw-bold text-secondary mb-2" style="font-size:13px; letter-spacing:1px;">Management</div>
                 <a href="{{ route('patients.index') }}" class="btn btn-outline-primary mb-2 w-100 text-start"><i class="fa-solid fa-user-injured me-2"></i> Patient</a>
                 <a href="#" class="btn btn-outline-primary mb-2 w-100 text-start" onclick="comingSoon(event)"><i class="fa-solid fa-vials me-2"></i> Tests</a>
-                <a href="#" class="btn btn-outline-primary mb-2 w-100 text-start" onclick="comingSoon(event)"><i class="fa-solid fa-calendar-check me-2"></i> Bookings</a>
+                    <a href="{{ route('admin.bookings.index') }}" class="btn btn-outline-primary mb-2 w-100 text-start"><i class="fa-solid fa-table-list me-2"></i> Bookings</a>
                 <a href="#" class="btn btn-outline-primary mb-2 w-100 text-start" onclick="comingSoon(event)"><i class="fa-solid fa-chart-line me-2"></i> Reports & Analytics</a>
                 <a href="#" class="btn btn-outline-primary mb-2 w-100 text-start" onclick="comingSoon(event)"><i class="fa-solid fa-file-medical me-2"></i> Test Reports</a>
                 <a href="/payments" class="btn btn-outline-primary mb-2 w-100 text-start"><i class="fa-solid fa-money-check-dollar me-2"></i> Payments</a>

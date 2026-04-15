@@ -25,7 +25,7 @@ class PatientController extends Controller
         if ($request->filled('date')) {
             $query->whereDate('visit_date', $request->input('date'));
         }
-        $patients = $query->orderBy('created_at', 'desc')->paginate(10);
+        $patients = $query->orderBy('created_at', 'desc')->get();
         return view('patients.index', compact('patients'));
     }
 

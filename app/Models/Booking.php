@@ -10,19 +10,20 @@ class Booking extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'lab_id',
-        'date',
-        'time',
+        'patient_id',
+        'test_type',
+        'name',
+        'phone',
+        'booking_date',
+        'booking_time',
+        'amount',
+        'status',
+        'notes',
+        'payment_method',
     ];
 
-    public function user()
+    public function patient()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function lab()
-    {
-        return $this->belongsTo(Lab::class);
+        return $this->belongsTo(Patient::class);
     }
 }

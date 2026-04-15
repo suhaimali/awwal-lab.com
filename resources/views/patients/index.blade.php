@@ -12,7 +12,7 @@
         <a href="{{ route('patients.create') }}" class="btn btn-gradient-primary shadow"><i class="fa fa-user-plus me-2"></i> Add Patient</a>
     </div>
     <div class="mb-3">
-        <span class="badge bg-gradient-primary" style="font-size:1rem; padding:10px 18px;">Total Patients: <b>{{ $patients->total() ?? $patients->count() }}</b></span>
+        <span class="badge bg-gradient-primary" style="font-size:1rem; padding:10px 18px;">Total Patients: <b>{{ $patients->count() }}</b></span>
     </div>
     <form method="GET" class="mb-4 row g-2" id="filterForm">
         <div class="col-md-5">
@@ -46,7 +46,6 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Age</th>
-                    <th>Phone</th>
                     <th>Date</th>
                     <th>Actions</th>
                 </tr>
@@ -57,12 +56,11 @@
                     <td>{{ $patient->id }}</td>
                     <td class="fw-semibold">{{ $patient->name }}</td>
                     <td>{{ $patient->age }}</td>
-                    <td>{{ $patient->phone }}</td>
                     <td><span class="badge bg-gradient-info text-white">{{ $patient->visit_date }}</span></td>
                     <td>
                         <a href="{{ route('patients.show', $patient) }}" class="btn btn-sm btn-outline-primary me-1"><i class="fa fa-eye"></i></a>
                         <a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-outline-warning me-1"><i class="fa fa-edit"></i></a>
-                        <form action="{{ route('patients.destroy', $patient) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this patient?');">
+                        <form action="{{ route('patients.destroy', $patient) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete patient {{ $patient->name }}?');">
                             @csrf @method('DELETE')
                             <button class="btn btn-sm btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
                         </form>
@@ -74,7 +72,7 @@
             </tbody>
         </table>
     </div>
-    <div class="mt-4">{{ $patients->links() }}</div>
+    <!-- No pagination: showing all patients -->
 </div>
 <style>
 .btn-gradient-primary {

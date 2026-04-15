@@ -9,6 +9,9 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PatientController;
 
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TestTypeController;
+
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -26,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('users', UserController::class);
         Route::resource('labs', LabController::class);
         Route::resource('equipment', EquipmentController::class);
+        Route::resource('bookings', BookingController::class);
     });
 
     // Staff Routes
@@ -44,18 +48,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/patients/{patient}/edit', [PatientController::class, 'edit'])->name('patients.edit');
     Route::put('/patients/{patient}', [PatientController::class, 'update'])->name('patients.update');
     Route::delete('/patients/{patient}', [PatientController::class, 'destroy'])->name('patients.destroy');
-});
 
 
 
-use App\Http\Controllers\PaymentController;
-Route::middleware(['auth'])->group(function () {
     Route::resource('payments', PaymentController::class);
+    Route::resource('test-types', TestTypeController::class);
 });
 
 Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('dashboard');
     }
-    return redirect()->route('login');
+    return view('welcome');
 });
