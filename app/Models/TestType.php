@@ -8,6 +8,6 @@ class TestType extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'category', 'amount', 'notes', 'status', 'color', 'custom_field',
+        'name', 'price', 'category', 'amount', 'notes', 'status', 'color', 'custom_field',
     ];
 }

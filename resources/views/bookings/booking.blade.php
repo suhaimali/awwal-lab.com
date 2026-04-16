@@ -391,7 +391,7 @@
             </div>
             <div class="modal-body p-4">
                 <!-- Using generic route names to avoid 'admin.test-types' undefined errors -->
-                <form action="{{ route('test-types.store') }}" method="POST" class="d-flex gap-2 mb-3">
+                <form action="{{ route('admin.test-types.store') }}" method="POST" class="d-flex gap-2 mb-3">
                     @csrf
                     <input type="text" name="name" class="form-control border-primary shadow-none" placeholder="New Test Name..." required>
                     <button class="btn btn-primary fw-bold" type="submit">Add</button>
@@ -401,8 +401,8 @@
                     <div class="d-flex justify-content-between align-items-center p-2 mb-2 bg-light rounded border shadow-sm">
                         <span class="fw-bold ps-2 text-dark">{{ $type->name }}</span>
                         <div class="d-flex gap-1">
-                            <button class="btn btn-sm text-primary border-0" onclick="editTest({{ $type->id }}, '{{ $type->name }}')"><i class="fa fa-edit"></i></button>
-                            <form action="{{ route('test-types.destroy', $type->id) }}" method="POST" class="d-inline">
+                            <button class="btn btn-sm text-primary border-0" onclick="editTestType({{ $type->id }}, '{{ addslashes($type->name) }}')"><i class="fa fa-edit"></i></button>
+                            <form action="{{ route('admin.test-types.destroy', $type->id) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm text-danger border-0"><i class="fa fa-trash-alt"></i></button>
                             </form>
@@ -450,8 +450,37 @@ function calcEdit(id) {
 
 function editTest(id, name) {
     let n = prompt("Update Test Name:", name);
-    if (n && n !== name) window.location.href = `/admin/test-types/update/${id}?name=${n}`;
+    if (n && n !== name) {
+        let form = document.getElementById('editTestTypeForm');
+        form.action = `/admin/test-types/${id}`;
+        document.getElementById('editTestTypeName').value = n;
+        form.style.display = 'none';
+        form.submit();
+    }
 }
+function editTestType(id, name) {
+    let newName = prompt('Edit Test Name:', name);
+    if (newName === null || !newName.trim()) return;
+    let form = document.getElementById('editTestTypeForm');
+    form.action = `/admin/test-types/${id}`;
+    document.getElementById('editTestTypeName').value = newName;
+    form.submit();
+}
+</script>
+
+<!-- Hidden form for editing test types (name only) -->
+<form id="editTestTypeForm" method="POST" style="display:none;">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="name" id="editTestTypeName">
+</form>
+
+<!-- Hidden form for editing test types (single inline edit) -->
+<form id="editTestTypeForm" method="POST" style="display:none;">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="name" id="editTestTypeName">
+</form>
 </script>
 
 <style>

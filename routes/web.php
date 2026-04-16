@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('labs', LabController::class);
         Route::resource('equipment', EquipmentController::class);
         Route::resource('bookings', BookingController::class);
+        Route::resource('test-types', TestTypeController::class);
     });
 
     // Staff Routes
@@ -52,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::resource('payments', PaymentController::class);
-    Route::resource('test-types', TestTypeController::class);
+    // Route::resource('test-types', TestTypeController::class); // Moved to admin group above
 });
 
 Route::get('/', function () {
