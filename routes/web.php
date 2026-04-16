@@ -12,6 +12,13 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TestTypeController;
 
+
+
+// Admin Test Reports (Coming Soon)
+Route::middleware(['auth', 'role:admin'])->get('/admin/test-reports', function() {
+    return view('admin.test-reports');
+})->name('admin.test-reports');
+
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);

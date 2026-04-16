@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            if (Schema::hasColumn('bookings', 'test_type_id')) {
-                $table->dropForeign(['test_type_id']);
+        if (Schema::hasColumn('bookings', 'test_type_id')) {
+            // Check if the foreign key exists before dropping
+            $fkName = 'bookings_test_type_id_foreign';
+            $sm = DB::select("SELECT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_NAME = 'bookings' AND COLUMN_NAME = 'test_type_id' AND CONSTRAINT_NAME = ?", [$fkName]);
+            Schema::table('bookings', function (Blueprint $table) use ($fkName, $sm) {
+                if (!empty($sm)) {
+                    $table->dropForeign([$fkName]);
+                }
                 $table->dropColumn('test_type_id');
-            }
-        });
+            });
+        }
     }
 
     /**
