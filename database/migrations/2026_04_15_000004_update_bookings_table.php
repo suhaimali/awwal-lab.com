@@ -15,16 +15,16 @@ class UpdateBookingsTable extends Migration
     public function up()
     {
         DB::table('bookings')->get()->each(function ($booking) {
-            $totalAmount = $booking->amount;
+            $totalAmount = $booking->amount ?? 0;
             $discount = $booking->discount ?? 0;
             $finalPayable = $totalAmount - $discount;
 
             DB::table('bookings')
                 ->where('id', $booking->id)
                 ->update([
-                    'total_amount' => $totalAmount,
-                    'discount' => $discount,
-                    'final_payable' => $finalPayable,
+                    'total_amount' => $totalAmount ?? 0,
+                    'discount' => $discount ?? 0,
+                    'final_payable' => $finalPayable ?? 0,
                 ]);
         });
     }

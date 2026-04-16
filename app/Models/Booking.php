@@ -20,6 +20,9 @@ class Booking extends Model
         'status',
         'notes',
         'payment_method',
+        'total_amount',
+        'discount',
+        'final_payable',
     ];
 
     public function patient()

@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Duplicate bookings table migration commented out to avoid conflict.
-        // Schema::create('bookings', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-        //     $table->foreignId('lab_id')->constrained('labs')->onDelete('cascade');
-        //     $table->date('date');
-        //     $table->time('time');
-        //     $table->timestamps();
-        // });
+        // Old bookings table structure
+        Schema::create('bookings', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('lab_id')->constrained('labs')->onDelete('cascade');
+            $table->date('date');
+            $table->time('time');
+            $table->timestamps();
+        });
     }
 
     /**
