@@ -8,15 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->decimal('payable', 10, 2)->default(0)->change();
-        });
+        if (Schema::hasColumn('payments', 'payable')) {
+            Schema::table('payments', function (Blueprint $table) {
+                $table->decimal('payable', 10, 2)->default(0)->change();
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->decimal('payable', 10, 2)->change();
-        });
+        if (Schema::hasColumn('payments', 'payable')) {
+            Schema::table('payments', function (Blueprint $table) {
+                $table->decimal('payable', 10, 2)->change();
+            });
+        }
     }
 };

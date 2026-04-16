@@ -9,7 +9,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->dropColumn(['adnamiton_notes', 'lab_test_setup', 'additional_notes']);
+            $columns = \Schema::getColumnListing('bookings');
+            $toDrop = [];
+            foreach (['adnamiton_notes', 'lab_test_setup', 'additional_notes'] as $col) {
+                if (in_array($col, $columns)) {
+                    $toDrop[] = $col;
+                }
+            }
+            if (count($toDrop)) {
+                $table->dropColumn($toDrop);
+            }
         });
     }
 
