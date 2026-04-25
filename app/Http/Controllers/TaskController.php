@@ -31,6 +31,7 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'type' => 'required|in:Directive,Bug,Maintenance',
             'description' => 'nullable|string',
             'status' => 'required|in:Pending,In Progress,Completed,Action Needed',
             'assigned_to' => 'nullable|exists:users,id',
@@ -66,6 +67,7 @@ class TaskController extends Controller
         
         $validated = $request->validate([
             'title' => 'sometimes|string|max:255',
+            'type' => 'sometimes|in:Directive,Bug,Maintenance',
             'description' => 'nullable|string',
             'status' => 'sometimes|in:Pending,In Progress,Completed,Action Needed',
             'assigned_to' => 'nullable|exists:users,id',
