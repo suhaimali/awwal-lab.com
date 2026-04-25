@@ -10,11 +10,12 @@ class SettingController extends Controller
     public function updateIdentity(Request $request)
     {
         $user = auth()->user();
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
         ]);
 
-        $user->update(['name' => $request->name]);
+        $user->update($validated);
 
         return back()->with('success', 'Identity updated successfully.');
     }

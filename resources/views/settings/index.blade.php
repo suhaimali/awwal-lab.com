@@ -234,8 +234,8 @@
                             <div class="col-md-6">
                                 <label class="set-label">Operator ID (Email)</label>
                                 <div class="position-relative">
-                                    <input type="text" class="set-input form-control ps-4"
-                                           value="{{ auth()->user()->email }}" disabled>
+                                    <input type="email" name="email" class="set-input form-control ps-4"
+                                           value="{{ auth()->user()->email }}" required>
                                     <i class="fa-solid fa-envelope position-absolute text-muted" style="left:12px;top:50%;transform:translateY(-50%);font-size:12px;"></i>
                                 </div>
                             </div>
