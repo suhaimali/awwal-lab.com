@@ -15,6 +15,9 @@ return new class extends Migration
             Schema::create('test_categories', function (Blueprint $table) {
                 $table->id();
                 $table->string('name')->unique();
+                $table->text('description')->nullable();
+                $table->string('status')->default('Active');
+                $table->unsignedBigInteger('lab_id')->default(1);
                 $table->timestamps();
             });
         }
