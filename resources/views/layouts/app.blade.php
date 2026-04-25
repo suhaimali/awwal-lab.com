@@ -81,9 +81,9 @@
 
         .brand-icon {
             font-size: 26px;
-            color: #2563eb;
+            color: var(--primary-color);
             margin-right: 12px;
-            background: #eff6ff;
+            background: rgba(var(--primary-color-rgb, 37, 99, 235), 0.1);
             padding: 10px;
             border-radius: 14px;
             box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
@@ -114,8 +114,8 @@
             border: 1px solid transparent;
         }
         .sidebar a:hover, .sidebar a.active {
-            color: #2563eb;
-            background: #eff6ff;
+            color: var(--primary-color);
+            background: rgba(var(--primary-color-rgb, 37, 99, 235), 0.1);
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
             transform: translateX(4px);
         }
@@ -322,7 +322,7 @@
 
         /* Buttons */
         .btn-primary {
-            background: #2563eb;
+            background: var(--primary-color);
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
@@ -359,9 +359,8 @@
         }
         .stat-icon {
             width: 50px;
-            width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #f52988 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e3a8a 100%);
             border-radius: 14px;
             display: flex;
             align-items: center;
@@ -370,7 +369,7 @@
             font-weight: 900;
             color: #fff;
             margin-right: 15px;
-            box-shadow: 0 2px 8px rgba(245,41,136,0.10);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.10);
         }
             .top-navbar { padding: 0 20px; }
         
@@ -425,14 +424,16 @@
             --accent-emerald: #10b981;
             --accent-rose: #f43f5e;
             --accent-amber: #f59e0b;
+            --accent-cyan: #06b6d4;
             --primary-color: var(--accent-blue);
         }
 
-        html[data-accent="blue"] { --primary-color: var(--accent-blue); }
-        html[data-accent="purple"] { --primary-color: var(--accent-purple); }
-        html[data-accent="emerald"] { --primary-color: var(--accent-emerald); }
-        html[data-accent="rose"] { --primary-color: var(--accent-rose); }
-        html[data-accent="amber"] { --primary-color: var(--accent-amber); }
+        html[data-accent="blue"] { --primary-color: var(--accent-blue); --primary-color-rgb: 37, 99, 235; }
+        html[data-accent="purple"] { --primary-color: var(--accent-purple); --primary-color-rgb: 139, 92, 246; }
+        html[data-accent="emerald"] { --primary-color: var(--accent-emerald); --primary-color-rgb: 16, 185, 129; }
+        html[data-accent="rose"] { --primary-color: var(--accent-rose); --primary-color-rgb: 244, 63, 94; }
+        html[data-accent="amber"] { --primary-color: var(--accent-amber); --primary-color-rgb: 245, 158, 11; }
+        html[data-accent="cyan"] { --primary-color: var(--accent-cyan); --primary-color-rgb: 6, 182, 212; }
 
         .btn-primary, .bg-primary { background-color: var(--primary-color) !important; color: white !important; }
         .text-primary { background: none !important; color: var(--primary-color) !important; }
