@@ -15,6 +15,7 @@ class Payment extends Model
         'payment_method',
         'transaction_id',
         'patient_id',
+        'booking_id',
     ];
 
     public function patient()

@@ -5,65 +5,69 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
-    }
-
-    public function create()
-    {
-        return view('users.create');
+        $users = User::orderByDesc('id')->get();
+        return view('admin.users.index', compact('users'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,staff,student',
+            'password' => 'required|string|min:8',
+            'role' => 'required|in:admin,staff',
+            'permissions' => 'nullable|array',
         ]);
 
         User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => $validated['role'],
+            'permissions' => $request->permissions ?? [],
         ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
-    }
-
-    public function show(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    public function edit(User $user)
-    {
-        return view('users.edit', compact('user'));
+        return redirect()->route('admin.users.index')->with('success', 'Operator added successfully.');
     }
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'role' => 'required|in:admin,staff,student',
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'password' => 'nullable|string|min:8',
+            'role' => 'required|in:admin,staff',
+            'permissions' => 'nullable|array',
         ]);
 
-        $user->update($request->except('password'));
+        $data = [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'role' => $validated['role'],
+            'permissions' => $request->permissions ?? [],
+        ];
 
-        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+        if (!empty($validated['password'])) {
+            $data['password'] = Hash::make($validated['password']);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('admin.users.index')->with('success', 'Operator updated successfully.');
     }
 
     public function destroy(User $user)
     {
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'You cannot delete yourself!');
+        }
         $user->delete();
-        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('admin.users.index')->with('success', 'Operator deleted successfully.');
     }
 }

@@ -27,7 +27,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,staff,student',
+            'role' => 'required|in:admin,staff',
         ]);
 
         if ($validator->fails()) {
@@ -102,10 +102,6 @@ class AuthController extends Controller
 
         if ($user->role === 'admin') {
             return redirect()->route('admin.dashboard');
-        } elseif ($user->role === 'staff') {
-            return redirect()->route('staff.dashboard');
-        } elseif ($user->role === 'student') {
-            return redirect()->route('student.dashboard');
         }
 
         return redirect('/');

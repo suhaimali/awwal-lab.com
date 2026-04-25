@@ -2,31 +2,46 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
+        'booking_id',
+        'bill_no',
+        'lab_id',
         'patient_id',
-        'test_type',
-        'name',
-        'phone',
+        'tests',
         'booking_date',
         'booking_time',
+        'reporting_date',
         'amount',
-        'status',
-        'notes',
-        'payment_method',
         'total_amount',
         'discount',
-        'final_payable',
+        'advance_amount',
+        'balance_amount',
+        'payment_method',
+        'status',
+        'notes',
+    ];
+
+    protected $casts = [
+        'tests' => 'array',
+        'booking_date' => 'date',
+        'reporting_date' => 'date',
+        'total_amount' => 'decimal:2',
+        'discount' => 'decimal:2',
+        'advance_amount' => 'decimal:2',
+        'balance_amount' => 'decimal:2',
     ];
 
     public function patient()
     {
         return $this->belongsTo(Patient::class);
+    }
+
+    public function report()
+    {
+        return $this->hasOne(Report::class);
     }
 }

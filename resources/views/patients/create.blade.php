@@ -38,8 +38,13 @@
             @error('address')<div class="text-danger small">{{ $message }}</div>@enderror
         </div>
         <div class="col-md-6">
+            <label class="form-label">Reference Doctor</label>
+            <input type="text" name="reference_dr_name" value="{{ old('reference_dr_name') }}" class="form-control border-info" placeholder="Enter Dr. Name" />
+            @error('reference_dr_name')<div class="text-danger small">{{ $message }}</div>@enderror
+        </div>
+        <div class="col-md-6">
             <label class="form-label">Visit Date</label>
-            <input type="date" name="visit_date" value="{{ old('visit_date') }}" class="form-control border-warning" required />
+            <input type="date" name="visit_date" value="{{ old('visit_date', date('Y-m-d')) }}" class="form-control border-warning" required />
             @error('visit_date')<div class="text-danger small">{{ $message }}</div>@enderror
         </div>
         <div class="col-md-12">

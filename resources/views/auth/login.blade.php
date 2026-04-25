@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Suhaim Soft Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,800;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         body { display: flex; height: 100vh; overflow: hidden; background: #fff; }
         .left-panel {
             width: 50%;
-            background: linear-gradient(135deg, #2b1d6f 0%, #b8227b 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
         }
         .right-panel {
             width: 50%;
@@ -30,37 +39,27 @@
         .logo-box {
             width: 120px;
             height: 120px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .logo-box span:nth-child(1) { color: #f52988; }
-        .logo-box span:nth-child(2) { color: #1f1140; }
-        .logo-dot {
-            width: 4px;
-            height: 4px;
-            background: #f52988;
-            border-radius: 50%;
-            position: absolute;
-            left: -15px;
-            bottom: 20px;
+            font-size: 50px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
         
-        .title { font-size: 42px; font-weight: 800; letter-spacing: 1px; margin-bottom: -5px; }
-        .subtitle { font-size: 14px; font-weight: 700; font-style: italic; letter-spacing: 2px; color: rgba(255,255,255,0.8); }
+        .title { font-size: 38px; font-weight: 800; letter-spacing: 2px; margin-bottom: 5px; z-index: 1; text-align: center; }
+        .subtitle { font-size: 14px; font-weight: 600; letter-spacing: 4px; color: #bfdbfe; z-index: 1; text-transform: uppercase; }
         
-        .login-form { width: 100%; max-width: 400px; }
+        .login-form { width: 100%; max-width: 420px; }
         .form-header { margin-bottom: 40px; }
-        .form-header h2 { font-size: 42px; font-weight: 800; color: #1a202c; line-height: 1.1; }
-        .form-header h2 .highlight { color: transparent; background: linear-gradient(90deg, #7c3aed, #d946ef); -webkit-background-clip: text; }
-        .gradient-line { width: 40px; height: 4px; background: linear-gradient(90deg, #7c3aed, #d946ef); margin-top: 10px; border-radius: 2px; }
+        .form-header h2 { font-size: 40px; font-weight: 800; color: #0f172a; line-height: 1.2; }
+        .form-header h2 .highlight { color: #2563eb; }
+        .gradient-line { width: 50px; height: 5px; background: #3b82f6; margin-top: 15px; border-radius: 4px; }
         
         .form-group { margin-bottom: 25px; }
         .form-group label {
@@ -75,56 +74,61 @@
         .form-group input, .form-group select {
             width: 100%;
             padding: 16px 20px;
-            background: #f0f5ff;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            color: #1a202c;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 15px;
+            color: #1e293b;
             outline: none;
             transition: all 0.3s;
         }
-        .form-group input:focus, .form-group select:focus { box-shadow: 0 0 0 2px #d946ef; }
+        .form-group input:focus, .form-group select:focus { 
+            border-color: #3b82f6; 
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); 
+        }
         
         .text-danger { font-size: 12px; color: #e53e3e; font-weight: 600; margin-top: 6px; display: block; }
         
         .stay-active { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; }
-        .stay-active input { width: 18px; height: 18px; accent-color: #d946ef; border-radius: 4px; border: none; background: #f0f5ff; }
-        .stay-active label { font-size: 11px; font-weight: 700; color: #a0aec0; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+        .stay-active input { width: 18px; height: 18px; accent-color: #3b82f6; border-radius: 4px; border: none; }
+        .stay-active label { font-size: 12px; font-weight: 600; color: #64748b; letter-spacing: 0.5px; cursor: pointer; }
         
         .btn-submit {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(90deg, #9b2add, #df2a82);
+            padding: 18px;
+            background: #2563eb;
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 13px;
+            border-radius: 14px;
+            font-size: 14px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             cursor: pointer;
             text-transform: uppercase;
-            box-shadow: 0 10px 20px rgba(223, 42, 130, 0.2);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s;
         }
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(223, 42, 130, 0.3); }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4); background: #1d4ed8; }
         
         .request-clearance {
             text-align: center;
-            margin-top: 30px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #a0aec0;
-            text-transform: uppercase;
+            margin-top: 35px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
         }
-        .request-clearance a { color: #8b5cf6; text-decoration: none; transition: color 0.3s; }
-        .request-clearance a:hover { color: #d946ef; }
+        .request-clearance a { color: #2563eb; text-decoration: none; font-weight: 700; transition: color 0.3s; }
+        .request-clearance a:hover { color: #1e3a8a; }
         
         @media (max-width: 768px) {
-            body { flex-direction: column; }
+            body { flex-direction: column; overflow-y: auto; }
             .left-panel, .right-panel { width: 100%; }
-            .left-panel { height: 30vh; }
-            .right-panel { height: 70vh; padding: 20px; }
+            .left-panel { height: 40vh; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+            .right-panel { height: auto; min-height: 60vh; padding: 30px 20px; }
+            .logo-box { width: 80px; height: 80px; font-size: 35px; margin-bottom: 10px; }
+            .title { font-size: 28px; }
+            .form-header h2 { font-size: 32px; }
         }
     </style>
 </head>
@@ -132,11 +136,10 @@
 
     <div class="left-panel">
         <div class="logo-box">
-            <div class="logo-dot"></div>
-            <span>S</span><span>S</span><span>L</span>
+            <i class="fa-solid fa-flask"></i>
         </div>
         <div class="title">SUHAIM SOFT LAB</div>
-        <div class="subtitle">SUHAIM SOFT LAB</div>
+        <div class="subtitle">Secure Control Panel</div>
     </div>
 
     <div class="right-panel">
@@ -173,14 +176,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="role">System Role</label>
-                    <select id="role" name="role" required style="width: 100%; padding: 14px 20px; background: #f0f5ff; border: none; border-radius: 12px; font-size: 14px; outline: none; margin-bottom: 10px;">
-                        <option value="admin">Admin</option>
-                        <option value="staff">Staff</option>
+                    <label for="role">Clearance Level</label>
+                    <select id="role" name="role" required>
+                        <option value="admin">Administrator (Full Network Control)</option>
+                        <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Laboratory Staff (Operational Hub)</option>
                     </select>
-                    @error('role')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <div class="form-group" style="display: flex; align-items: center; gap: 8px;">

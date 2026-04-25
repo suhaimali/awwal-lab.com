@@ -3,118 +3,112 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
-use App\Models\Lab;
+use App\Models\Patient;
+use App\Models\TestType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
-    public function destroy(Booking $booking)
-    {
-        $booking->delete();
-        return redirect()->route('admin.bookings.index')->with('success', 'Booking deleted successfully!');
-    }
-
     public function index(Request $request)
     {
-        $query = Booking::with('patient');
+        $query = Booking::with('patient')->latest();
 
-        // Filtering
         if ($request->filled('search')) {
-            $query->whereHas('patient', function($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('phone', 'like', '%' . $request->search . '%');
-            });
-        }
-        if ($request->filled('from')) {
-            $query->whereDate('booking_date', '>=', $request->from);
-        }
-        if ($request->filled('to')) {
-            $query->whereDate('booking_date', '<=', $request->to);
-        }
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
+            $search = $request->input('search');
+            $query->where('booking_id', 'like', "%$search%")
+                  ->orWhereHas('patient', function ($q) use ($search) {
+                      $q->where('name', 'like', "%$search%");
+                  });
         }
 
-        $bookings = $query->orderByDesc('id')->paginate(10)->withQueryString();
+        if ($request->filled('date')) {
+            $query->whereDate('booking_date', $request->input('date'));
+        }
+        
+        if ($request->filled('status') && $request->input('status') !== 'All') {
+            $query->where('status', $request->input('status'));
+        }
 
-        // Summary cards
+        $bookings = $query->get();
+        $patients = Patient::orderBy('name')->get();
+        $testTypes = TestType::where('status', 'Active')->orderBy('name')->get();
+
         $totalBookings = Booking::count();
-        $confirmed = Booking::where('status', 'Confirmed')->count();
-        $pending = Booking::where('status', 'Pending')->count();
-        $cancelled = Booking::where('status', 'Cancelled')->count();
-        $totalRevenue = Booking::sum('amount');
+        $todayBookings = Booking::whereDate('booking_date', date('Y-m-d'))->count();
+        $totalRevenue = Booking::sum('total_amount');
 
-        $patients = \App\Models\Patient::orderBy('name')->get();
-        $testTypes = \App\Models\TestType::all();
-
-        return view('bookings.booking', compact('bookings', 'totalBookings', 'confirmed', 'pending', 'cancelled', 'totalRevenue', 'patients', 'testTypes'));
+        return view('bookings.index', compact('bookings', 'patients', 'testTypes', 'totalBookings', 'todayBookings', 'totalRevenue'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'patient_id' => 'required|exists:patients,id',
-            'test_type' => 'required|string',
+            'tests' => 'required|array',
+            'tests.*' => 'exists:test_types,id',
             'booking_date' => 'required|date',
-            'booking_time' => 'required',
-            'amount' => 'required|numeric|min:0',
-            'status' => 'nullable|string',
+            'status' => 'required|in:Pending,Confirmed,Cancelled',
             'notes' => 'nullable|string',
-            'payment_method' => 'nullable|string',
         ]);
-        $validated['total_amount'] = $request->input('amount');
-        $validated['discount'] = $request->input('discount', 0);
-        $validated['final_payable'] = $validated['total_amount'] - $validated['discount'];
-        // Get patient name and phone
-        $patient = \App\Models\Patient::find($validated['patient_id']);
-        $validated['name'] = $patient ? $patient->name : null;
-        $validated['phone'] = $patient ? $patient->phone : null;
-        $validated['status'] = $request->input('status', 'Pending');
-        // Save booking
-        $booking = \App\Models\Booking::create($validated);
 
-        // Save payment details
-        \App\Models\Payment::create([
+        // Auto-calculate Total Amount
+        $totalAmount = 0;
+        if (!empty($validated['tests'])) {
+            $totalAmount = TestType::whereIn('id', $validated['tests'])->sum('price');
+        }
+
+        // Generate Booking ID
+        $latestBooking = Booking::latest('id')->first();
+        $nextId = $latestBooking ? $latestBooking->id + 1 : 1;
+        $bookingId = 'BKG-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
+
+        Booking::create([
+            'booking_id' => $bookingId,
+            'lab_id' => \App\Models\Lab::first()?->id ?? 1,
             'patient_id' => $validated['patient_id'],
-            'amount' => $validated['amount'],
-            'payment_method' => $validated['payment_method'] ?? 'Cash',
-            'payment_status' => 'Paid',
-            'payment_date' => now(),
-            'total' => $validated['final_payable'], // Include total field
-            'payable' => $validated['final_payable'], // Include payable field
+            'tests' => $validated['tests'],
+            'booking_date' => $validated['booking_date'],
+            'amount' => $totalAmount,
+            'total_amount' => $totalAmount,
+            'status' => $validated['status'],
+            'notes' => $validated['notes'],
         ]);
 
-        return redirect()->route('admin.bookings.index')->with('success', 'Booking and payment saved successfully!');
-    }
-    public function edit(Booking $booking)
-    {
-        $patients = \App\Models\Patient::orderBy('name')->get();
-        $testTypes = \App\Models\TestType::all();
-        return view('bookings.edit_booking', compact('booking', 'patients', 'testTypes'));
+        return redirect()->route('admin.bookings.index')->with('success', 'Booking created successfully.');
     }
 
     public function update(Request $request, Booking $booking)
     {
         $validated = $request->validate([
             'patient_id' => 'required|exists:patients,id',
-            'test_type' => 'required|string',
+            'tests' => 'required|array',
+            'tests.*' => 'exists:test_types,id',
             'booking_date' => 'required|date',
-            'booking_time' => 'required',
-            'amount' => 'required|numeric|min:0',
-            'status' => 'nullable|string',
+            'status' => 'required|in:Pending,Confirmed,Cancelled',
             'notes' => 'nullable|string',
-            'payment_method' => 'nullable|string',
         ]);
-        $patient = \App\Models\Patient::find($validated['patient_id']);
-        $validated['name'] = $patient ? $patient->name : null;
-        $validated['phone'] = $patient ? $patient->phone : null;
-        $validated['status'] = $request->input('status', $booking->status ?? 'Pending');
-        $validated['discount'] = $request->input('discount', 0);
-        $validated['total_amount'] = $request->input('amount');
-        $validated['final_payable'] = $validated['total_amount'] - $validated['discount'];
 
-        $booking->update($validated);
-        return redirect()->route('admin.bookings.index')->with('success', 'Booking updated successfully!');
+        // Auto-calculate Total Amount
+        $totalAmount = 0;
+        if (!empty($validated['tests'])) {
+            $totalAmount = TestType::whereIn('id', $validated['tests'])->sum('price');
+        }
+
+        $booking->update([
+            'patient_id' => $validated['patient_id'],
+            'tests' => $validated['tests'],
+            'booking_date' => $validated['booking_date'],
+            'total_amount' => $totalAmount,
+            'status' => $validated['status'],
+            'notes' => $validated['notes'],
+        ]);
+
+        return redirect()->route('admin.bookings.index')->with('success', 'Booking updated successfully.');
+    }
+
+    public function destroy(Booking $booking)
+    {
+        $booking->delete();
+        return redirect()->route('admin.bookings.index')->with('success', 'Booking deleted successfully.');
     }
 }

@@ -57,7 +57,7 @@ class EquipmentController extends Controller
         if (auth()->user()->role === 'admin') {
             return redirect()->route('admin.equipment.index')->with('success', 'Equipment updated successfully.');
         } else {
-            return redirect()->route('staff.equipment.index')->with('success', 'Equipment status updated successfully.');
+            return redirect()->route('admin.equipment.index')->with('success', 'Equipment status updated successfully.');
         }
     }
 

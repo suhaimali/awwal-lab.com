@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'permissions',
     ];
 
     /**
@@ -45,11 +46,18 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'permissions' => 'array',
         ];
     }
 
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function hasPermission($permission)
+    {
+        if ($this->role === 'admin') return true;
+        return in_array($permission, $this->permissions ?? []);
     }
 }

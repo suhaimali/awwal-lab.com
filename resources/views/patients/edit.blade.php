@@ -52,6 +52,13 @@
                 </td>
             </tr>
             <tr>
+                <th>Reference Doctor</th>
+                <td>
+                    <input type="text" name="reference_dr_name" value="{{ old('reference_dr_name', $patient->reference_dr_name) }}" class="form-control" />
+                    @error('reference_dr_name')<div class="text-danger small">{{ $message }}</div>@enderror
+                </td>
+            </tr>
+            <tr>
                 <th>Visit Date</th>
                 <td>
                     <input type="date" name="visit_date" value="{{ old('visit_date', $patient->visit_date) }}" class="form-control" required />

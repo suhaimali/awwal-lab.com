@@ -29,7 +29,9 @@ class PaymentController extends Controller
         $totalRevenue = Payment::where('payment_status', 'Paid')->sum('amount') ?: 0;
         $totalPending = Payment::where('payment_status', 'Pending')->sum('amount') ?: 0;
         $totalCollections = Payment::sum('amount') ?: 0;
-        return view('payments.index', compact('payments', 'totalPayments', 'totalRevenue', 'totalPending', 'totalCollections'));
+        $patientsList = \App\Models\Patient::orderBy('name')->get();
+        $bookingsList = \Illuminate\Support\Facades\DB::table('bookings')->orderBy('created_at', 'desc')->get();
+        return view('payments.index', compact('payments', 'totalPayments', 'totalRevenue', 'totalPending', 'totalCollections', 'patientsList', 'bookingsList'));
     }
 
     public function create()
@@ -44,11 +46,12 @@ class PaymentController extends Controller
             'patient_id' => 'required|exists:patients,id',
             'amount' => 'required|numeric',
             'payment_status' => 'required|in:Paid,Pending,Failed',
-            'payment_method' => 'required|in:Cash,UPI,Card',
+            'payment_method' => 'required|in:Cash,Bank Transfer,Card',
             'transaction_id' => 'nullable|string|max:255',
+            'booking_id' => 'nullable|exists:bookings,id',
         ]);
         Payment::create($validated);
-        return redirect()->route('payments.index')->with('success', 'Payment added successfully.');
+        return redirect()->route('admin.payments.index')->with('success', 'Payment added successfully.');
     }
 
     public function show(Payment $payment)
@@ -68,18 +71,20 @@ class PaymentController extends Controller
     public function update(Request $request, Payment $payment)
     {
         $validated = $request->validate([
+            'patient_id' => 'required|exists:patients,id',
             'amount' => 'required|numeric',
             'payment_status' => 'required|in:Paid,Pending,Failed',
-            'payment_method' => 'required|in:Cash,UPI,Card',
+            'payment_method' => 'required|in:Cash,Bank Transfer,Card',
             'transaction_id' => 'nullable|string|max:255',
+            'booking_id' => 'nullable|exists:bookings,id',
         ]);
         $payment->update($validated);
-        return redirect()->route('payments.index')->with('success', 'Payment updated successfully.');
+        return redirect()->route('admin.payments.index')->with('success', 'Payment updated successfully.');
     }
 
     public function destroy(Payment $payment)
     {
         $payment->delete();
-        return redirect()->route('payments.index')->with('success', 'Payment deleted successfully.');
+        return redirect()->route('admin.payments.index')->with('success', 'Payment deleted successfully.');
     }
 }
