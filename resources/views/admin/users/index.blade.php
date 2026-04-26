@@ -363,12 +363,21 @@
                             @php
                                 $perms = [
                                     'Control Center' => 'dashboard',
-                                    'Registration' => 'registration_desk',
-                                    'Reference' => 'reference_network',
-                                    'Diagnostic' => 'diagnostic_reports',
-                                    'Financials' => 'financial_analysis',
-                                    'Operational' => 'operational_tasks',
-                                    'Infrastructure' => 'facility_network'
+                                    'Registration Desk' => 'registration_desk',
+                                    'Investigation Library' => 'investigation_library',
+                                    'Reference Network' => 'reference_network',
+                                    'Lab Bookings' => 'lab_bookings',
+                                    'Test Reports' => 'diagnostic_reports',
+                                    'Report Dispatch' => 'report_dispatch',
+                                    'Financial & Sales Analysis' => 'financial_analysis',
+                                    'Operational Tasks' => 'operational_tasks',
+                                    'Infrastructure' => 'infrastructure',
+                                    'Hardware Matrix' => 'hardware_matrix',
+                                    'Facility Network' => 'facility_network',
+                                    'Financial Treasury' => 'financial_treasury',
+                                    'Payment Terminal' => 'payment_terminal',
+                                    'Network Operators' => 'network_operators',
+                                    'System Protocol' => 'system_protocol'
                                 ];
                             @endphp
                             @foreach($perms as $label => $val)
@@ -446,12 +455,21 @@
                             @php
                                 $perms = [
                                     'Control Center' => 'dashboard',
-                                    'Registration' => 'registration_desk',
-                                    'Reference' => 'reference_network',
-                                    'Diagnostic' => 'diagnostic_reports',
-                                    'Financials' => 'financial_analysis',
-                                    'Operational' => 'operational_tasks',
-                                    'Infrastructure' => 'facility_network'
+                                    'Registration Desk' => 'registration_desk',
+                                    'Investigation Library' => 'investigation_library',
+                                    'Reference Network' => 'reference_network',
+                                    'Lab Bookings' => 'lab_bookings',
+                                    'Test Reports' => 'diagnostic_reports',
+                                    'Report Dispatch' => 'report_dispatch',
+                                    'Financial & Sales Analysis' => 'financial_analysis',
+                                    'Operational Tasks' => 'operational_tasks',
+                                    'Infrastructure' => 'infrastructure',
+                                    'Hardware Matrix' => 'hardware_matrix',
+                                    'Facility Network' => 'facility_network',
+                                    'Financial Treasury' => 'financial_treasury',
+                                    'Payment Terminal' => 'payment_terminal',
+                                    'Network Operators' => 'network_operators',
+                                    'System Protocol' => 'system_protocol'
                                 ];
                                 $userPerms = $user->permissions ?? [];
                             @endphp

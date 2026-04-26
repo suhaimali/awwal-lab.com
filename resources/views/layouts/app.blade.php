@@ -600,6 +600,7 @@
                 @endif
             </div>
 
+            @if(auth()->user()->hasPermission('infrastructure'))
             <div class="mt-4 px-2">
                 <div class="sidebar-heading small text-muted text-uppercase fw-bold mb-2 ps-2" style="font-size: 10px; letter-spacing: 1px;">Infrastructure</div>
                 @if(auth()->user()->hasPermission('hardware_matrix'))
@@ -610,9 +611,12 @@
                 @endif
                 @if(auth()->user()->hasPermission('financial_treasury'))
                 <a href="{{ route('admin.payments.index') }}" class="{{ request()->routeIs('admin.payments.*') ? 'active' : '' }}"><i class="fa-solid fa-file-invoice-dollar me-2"></i> Financial Treasury</a>
+                @endif
+                @if(auth()->user()->hasPermission('payment_terminal'))
                 <a href="{{ route('admin.terminal') }}" class="{{ request()->routeIs('admin.terminal') ? 'active' : '' }}"><i class="fa-solid fa-cash-register me-2"></i> Payment Terminal</a>
                 @endif
             </div>
+            @endif
 
             <div class="mt-4 px-2">
                 <div class="sidebar-heading small text-muted text-uppercase fw-bold mb-2 ps-2" style="font-size: 10px; letter-spacing: 1px;">Management</div>
