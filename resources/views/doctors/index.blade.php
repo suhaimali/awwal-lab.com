@@ -96,14 +96,15 @@
                                         title="Edit">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <form action="{{ route('admin.doctors.destroy', $doctor) }}" method="POST" 
-                                      onsubmit="return confirm('Remove this doctor from the network?');" class="d-inline">
-                                    @csrf @method('DELETE')
-                                    <button class="btn btn-sm btn-white border shadow-none text-danger" title="Delete">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-sm btn-white border shadow-none text-danger" 
+                                        onclick="if(confirm('Remove this doctor from the network?')) document.getElementById('delete-doctor-{{ $doctor->id }}').submit();"
+                                        title="Delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
                             </div>
+                            <form id="delete-doctor-{{ $doctor->id }}" action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST" style="display: none;">
+                                @csrf @method('DELETE')
+                            </form>
                         </td>
                     </tr>
 
