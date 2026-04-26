@@ -8,33 +8,6 @@
             <p class="text-muted mb-0">Manage clinical referral partners and laboratory doctors.</p>
         </div>
         <div class="d-flex gap-2">
-            @if($trashedDoctors->count() > 0)
-            <div class="dropdown">
-                <button class="btn btn-outline-secondary d-flex align-items-center gap-2 px-3 shadow-sm" style="border-radius: 14px; height: 52px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-box-archive"></i>
-                    <span class="fw-bold">Archive ({{ $trashedDoctors->count() }})</span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-2" style="border-radius: 18px; min-width: 300px;">
-                    <li class="dropdown-header text-uppercase small fw-black pb-2 px-3">Deleted Doctors</li>
-                    @foreach($trashedDoctors as $td)
-                    <li class="p-2 mb-1 rounded-3 hover-bg-light">
-                        <div class="d-flex justify-content-between align-items-center px-2">
-                            <div>
-                                <div class="fw-bold text-dark small">{{ $td->name }}</div>
-                                <div class="text-muted" style="font-size: 10px;">{{ $td->specialization ?: 'General' }}</div>
-                            </div>
-                            <form action="{{ route('admin.doctors.restore', $td->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-soft-primary rounded-circle" title="Restore">
-                                    <i class="fa-solid fa-arrow-rotate-left" style="font-size: 10px;"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
             <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center gap-2 px-4 shadow-md hover-scale" style="border-radius: 14px; height: 52px; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); border: none;" data-bs-toggle="modal" data-bs-target="#addDoctorModal">
                 <i class="fa-solid fa-user-doctor fs-5"></i> 
                 <span class="fw-bold">Register Doctor</span>
@@ -96,15 +69,7 @@
                                         title="Edit">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm btn-white border shadow-none text-danger" 
-                                        onclick="if(confirm('Remove this doctor from the network?')) document.getElementById('delete-doctor-{{ $doctor->id }}').submit();"
-                                        title="Delete">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
                             </div>
-                            <form id="delete-doctor-{{ $doctor->id }}" action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST" style="display: none;">
-                                @csrf @method('DELETE')
-                            </form>
                         </td>
                     </tr>
 

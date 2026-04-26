@@ -31,7 +31,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('bookings', BookingController::class);
         Route::resource('patients', PatientController::class);
         Route::resource('doctors', \App\Http\Controllers\DoctorController::class);
-        Route::post('doctors/{doctor}/restore', [\App\Http\Controllers\DoctorController::class, 'restore'])->name('doctors.restore');
         Route::get('patients/{id}/invoice', [PatientController::class, 'printInvoice'])->name('patients.invoice');
         Route::get('patients/dashboard', [PatientController::class, 'dashboard'])->name('patients.dashboard');
         
