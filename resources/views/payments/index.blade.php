@@ -7,9 +7,10 @@
             <h2 class="fw-bold mb-1" style="color: #1e3a8a;">Financial Treasury</h2>
             <p class="text-muted mb-0">Monitor laboratory revenue, collections, and outstanding receivables.</p>
         </div>
-        <div class="d-flex gap-2">
-            <button type="button" class="btn btn-primary d-flex align-items-center gap-2 px-4 shadow-sm" style="border-radius: 12px; height: 48px;" data-bs-toggle="modal" data-bs-target="#addPaymentModal">
-                <i class="fa-solid fa-file-invoice-dollar"></i> New Settlement
+        <div class="d-flex flex-column flex-md-row gap-2 w-100 w-md-auto mt-3 mt-md-0">
+            <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center gap-2 px-4 shadow-md hover-scale w-100" style="border-radius: 14px; height: 52px; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); border: none;" data-bs-toggle="modal" data-bs-target="#addPaymentModal">
+                <i class="fa-solid fa-file-invoice-dollar fs-5"></i> 
+                <span class="fw-bold">New Settlement</span>
             </button>
         </div>
     </div>
@@ -97,7 +98,9 @@
                     </div>
                 </div>
                 <div class="col-md-2 text-end">
-                    <button type="submit" class="btn btn-dark rounded-pill px-4 shadow-sm w-100">Audit</button>
+                    <button type="submit" class="btn btn-outline-primary rounded-pill px-4 shadow-sm w-100 hover-scale fw-extrabold" style="border: 2px solid #1e3a8a; color: #1e3a8a; background: #fff; height: 45px;">
+                        <i class="fa-solid fa-file-shield me-2"></i> Audit
+                    </button>
                 </div>
             </form>
         </div>
@@ -349,5 +352,9 @@
     .btn-white:hover { background: #f8fafc; color: #1e293b; }
     .table thead th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 15px 10px; color: #64748b; }
     .table tbody td { padding: 15px 10px; }
+    .fw-extrabold { font-weight: 800; }
+    .hover-scale { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    .hover-scale:hover { transform: translateY(-2px) scale(1.02); }
+    .shadow-md { box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15); }
 </style>
 @endsection
