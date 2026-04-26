@@ -417,6 +417,30 @@
             }
         }
 
+        /* Mobile Status Bar Adjustments */
+        @media (max-width: 768px) {
+            .status-bar {
+                margin: 0 15px 15px 15px;
+                padding: 12px;
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            .status-bar .d-flex {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px !important;
+            }
+            .status-item.border-start {
+                border-left: none !important;
+                padding-left: 0 !important;
+                border-top: 1px solid rgba(226, 232, 240, 0.5);
+                padding-top: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
         /* Advanced UI Settings Styles */
         :root {
             --accent-blue: #2563eb;
@@ -676,7 +700,7 @@
         </div>
 
         <!-- Status Bar with Real-time Clock & Holiday -->
-        <div class="status-bar d-none d-md-flex">
+        <div class="status-bar d-flex">
             <div class="d-flex gap-4">
                 <div class="status-item">
                     <i class="fa-regular fa-calendar-check"></i>
