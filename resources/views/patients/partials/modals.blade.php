@@ -383,12 +383,25 @@
                 <div class="modal-body p-4">
                     <form action="{{ route('admin.doctors.store') }}" method="POST" class="mb-4 bg-light p-3 rounded-4">
                         @csrf
-                        <div class="row g-2">
-                            <div class="col-8">
-                                <input type="text" name="name" class="form-control border-0 shadow-sm" placeholder="Doctor Name" required style="border-radius: 10px;">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-muted text-uppercase">Full Name</label>
+                                <input type="text" name="name" class="form-control border-0 shadow-sm px-3 py-2 bg-light" placeholder="Dr. Name" required style="border-radius: 12px;">
                             </div>
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary w-100 fw-bold" style="border-radius: 10px;">Add</button>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-muted text-uppercase">Specialization</label>
+                                <input type="text" name="specialization" class="form-control border-0 shadow-sm px-3 py-2 bg-light" placeholder="e.g. Pathology" style="border-radius: 12px;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted text-uppercase">Phone</label>
+                                <input type="text" name="phone" class="form-control border-0 shadow-sm px-3 py-2 bg-light" placeholder="+91 ..." style="border-radius: 12px;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted text-uppercase">Email</label>
+                                <input type="email" name="email" class="form-control border-0 shadow-sm px-3 py-2 bg-light" placeholder="email@..." style="border-radius: 12px;">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary w-100 fw-bold py-2 shadow-sm" style="border-radius: 12px; background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); border: none;">Register to Network</button>
                             </div>
                         </div>
                     </form>

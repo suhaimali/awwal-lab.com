@@ -7,6 +7,20 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
+    public function index()
+    {
+        $doctors = Doctor::orderBy('name')->get();
+        $trashedDoctors = Doctor::onlyTrashed()->orderBy('name')->get();
+        return view('doctors.index', compact('doctors', 'trashedDoctors'));
+    }
+
+    public function restore($id)
+    {
+        $doctor = Doctor::onlyTrashed()->findOrFail($id);
+        $doctor->restore();
+        return back()->with('success', 'Doctor restored to active network.');
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

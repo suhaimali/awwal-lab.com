@@ -364,6 +364,7 @@
                                 $perms = [
                                     'Control Center' => 'dashboard',
                                     'Registration' => 'registration_desk',
+                                    'Reference' => 'reference_network',
                                     'Diagnostic' => 'diagnostic_reports',
                                     'Financials' => 'financial_analysis',
                                     'Operational' => 'operational_tasks',
@@ -446,6 +447,7 @@
                                 $perms = [
                                     'Control Center' => 'dashboard',
                                     'Registration' => 'registration_desk',
+                                    'Reference' => 'reference_network',
                                     'Diagnostic' => 'diagnostic_reports',
                                     'Financials' => 'financial_analysis',
                                     'Operational' => 'operational_tasks',

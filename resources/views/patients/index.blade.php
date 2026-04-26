@@ -155,24 +155,38 @@
                             @endif
                         </td>
                         <td>
-                            <div class="d-flex flex-column gap-1">
-                                <div class="small fw-bold text-dark">₹{{ number_format($patient->latestBooking->total_amount ?? 0, 2) }}</div>
-                                <div class="progress" style="height: 4px; width: 80px;">
-                                    @php 
-                                        $paid = $patient->latestBooking->advance_amount ?? 0;
-                                        $total = $patient->latestBooking->total_amount ?? 1;
-                                        $perc = ($paid / $total) * 100;
-                                    @endphp
-                                    <div class="progress-bar bg-success" style="width: {{ $perc }}%"></div>
+                            @if($patient->latestBooking)
+                                <div class="d-flex flex-column gap-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-0">
+                                        <span class="text-muted" style="font-size: 10px;">Total:</span>
+                                        <span class="fw-bold text-dark small">₹{{ number_format($patient->latestBooking->total_amount ?? 0, 0) }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-0">
+                                        <span class="text-muted" style="font-size: 10px;">Disc:</span>
+                                        <span class="text-danger small fw-bold">₹{{ number_format($patient->latestBooking->discount ?? 0, 0) }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-0">
+                                        <span class="text-muted" style="font-size: 10px;">Adv:</span>
+                                        <span class="text-success small fw-bold">₹{{ number_format($patient->latestBooking->advance_amount ?? 0, 0) }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center border-top pt-1 mt-1">
+                                        <span class="text-muted fw-bold" style="font-size: 10px;">Due:</span>
+                                        <span class="text-primary fw-bold small">₹{{ number_format($patient->latestBooking->balance_amount ?? 0, 0) }}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <span class="text-muted small">No Summary</span>
+                            @endif
                         </td>
                         <td class="text-center">
-                            @php $bal = $patient->latestBooking->balance_amount ?? 0; @endphp
-                            @if($bal <= 0)
-                                <span class="badge bg-soft-success text-success rounded-pill px-3">Cleared</span>
+                            @if($patient->latestBooking)
+                                <div class="badge bg-soft-success text-success rounded-pill px-3 mb-1">{{ $patient->latestBooking->status }}</div>
+                                <div class="text-muted fw-bold" style="font-size: 9px; letter-spacing: 0.5px;">
+                                    <i class="fa-regular fa-calendar-check me-1"></i>
+                                    {{ $patient->latestBooking->reporting_date ? $patient->latestBooking->reporting_date->format('d M, Y') : 'TBD' }}
+                                </div>
                             @else
-                                <span class="badge bg-soft-warning text-warning rounded-pill px-3">Pending ₹{{ number_format($bal, 0) }}</span>
+                                <span class="badge bg-soft-secondary text-secondary rounded-pill px-3">Inactive</span>
                             @endif
                         </td>
                         <td class="pe-4 text-end">

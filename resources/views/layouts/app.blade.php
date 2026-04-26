@@ -580,6 +580,9 @@
                 @if(auth()->user()->hasPermission('investigation_library'))
                 <a href="{{ route('admin.test-types.index') }}" class="{{ request()->routeIs('admin.test-types.*') ? 'active' : '' }}"><i class="fa-solid fa-vials me-2"></i> Investigation Library</a>
                 @endif
+                @if(auth()->user()->hasPermission('reference_network'))
+                <a href="{{ route('admin.doctors.index') }}" class="{{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}"><i class="fa-solid fa-user-doctor me-2"></i> Reference Network</a>
+                @endif
                 @if(auth()->user()->hasPermission('lab_bookings'))
                 <a href="{{ route('admin.bookings.index') }}" class="{{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}"><i class="fa-solid fa-calendar-check me-2"></i> Lab Bookings</a>
                 @endif
@@ -649,6 +652,7 @@
             @endif
             <a href="{{ route('admin.patients.index') }}" class="{{ request()->routeIs('admin.patients.*') ? 'active' : '' }}">Patients</a>
             <a href="{{ route('admin.test-types.index') }}" class="{{ request()->routeIs('admin.test-types.*') ? 'active' : '' }}">Library</a>
+            <a href="{{ route('admin.doctors.index') }}" class="{{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}">Doctors</a>
             <a href="{{ route('admin.bookings.index') }}" class="{{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}">Bookings</a>
             <a href="{{ route('admin.test-reports') }}" class="{{ request()->routeIs('admin.test-reports') ? 'active' : '' }}">Diagnostics</a>
             <a href="{{ route('admin.settings') }}" class="ms-auto {{ request()->routeIs('admin.settings') ? 'active' : '' }}"><i class="fa-solid fa-gear"></i> Operational Protocol</a>
