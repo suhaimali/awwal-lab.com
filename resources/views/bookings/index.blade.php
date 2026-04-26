@@ -218,8 +218,8 @@
     <div class="row g-4 mb-4 ba-animate d1">
 
         {{-- Lifecycle Total --}}
-        <div class="col-6 col-md-4">
-            <div class="ba-metric" style="background:linear-gradient(135deg,#1e40af 0%,#3b82f6 100%);color:#fff;border:none;">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="ba-metric h-100" style="background:linear-gradient(135deg,#1e40af 0%,#3b82f6 100%);color:#fff;border:none;">
                 <div class="ba-metric-icon" style="background:rgba(255,255,255,.2);">
                     <i class="fa-solid fa-clipboard-list"></i>
                 </div>
@@ -232,8 +232,8 @@
         </div>
 
         {{-- Today's Fresh Records --}}
-        <div class="col-6 col-md-4">
-            <div class="ba-metric">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="ba-metric h-100">
                 <div class="ba-metric-icon" style="background:#d1fae5;">
                     <i class="fa-solid fa-calendar-check" style="color:#16a34a;"></i>
                 </div>
@@ -247,9 +247,25 @@
             </div>
         </div>
 
+        {{-- Pending Stage --}}
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="ba-metric h-100">
+                <div class="ba-metric-icon" style="background:#fff7ed;">
+                    <i class="fa-solid fa-clock-rotate-left" style="color:#f59e0b;"></i>
+                </div>
+                <div class="fw-black text-dark" style="font-size:2rem;">{{ $pendingBookings }}</div>
+                <div class="fw-bold text-muted small text-uppercase" style="letter-spacing:1px;">Pending Stage</div>
+                <div class="mt-2">
+                    <span class="badge rounded-pill px-3 py-1 fw-bold" style="background:#fff7ed;color:#f59e0b;font-size:10px;">
+                        <i class="fa-solid fa-hourglass-half me-1"></i>In Queue
+                    </span>
+                </div>
+            </div>
+        </div>
+
         {{-- Gross Inflow --}}
-        <div class="col-6 col-md-4">
-            <div class="ba-metric">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="ba-metric h-100">
                 <div class="ba-metric-icon" style="background:#dbeafe;">
                     <i class="fa-solid fa-indian-rupee-sign text-primary"></i>
                 </div>
@@ -268,10 +284,9 @@
     <div class="ba-filter-bar ba-animate d2">
         <form method="GET">
             <div class="row g-3 align-items-end">
-
                 {{-- Search --}}
-                <div class="col-12 col-md-4">
-                    <label class="form-label mb-1 fw-bold text-muted text-uppercase" style="font-size:10px;letter-spacing:1px;">Search</label>
+                <div class="col-12 col-lg-4">
+                    <label class="form-label mb-1 fw-bold text-muted text-uppercase" style="font-size:10px;letter-spacing:1px;">Identity Search</label>
                     <div class="position-relative">
                         <i class="fa-solid fa-magnifying-glass position-absolute text-primary" style="left:14px;top:50%;transform:translateY(-50%);font-size:12px;"></i>
                         <input type="text" name="search" value="{{ request('search') }}"
@@ -281,8 +296,8 @@
                 </div>
 
                 {{-- Status --}}
-                <div class="col-6 col-md-2">
-                    <label class="form-label mb-1 fw-bold text-muted text-uppercase" style="font-size:10px;letter-spacing:1px;">Stage</label>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <label class="form-label mb-1 fw-bold text-muted text-uppercase" style="font-size:10px;letter-spacing:1px;">Clinical Stage</label>
                     <select name="status" class="form-select ba-select">
                         <option value="All">All Stages</option>
                         <option value="Pending"   {{ request('status')=='Pending'   ? 'selected':'' }}>Pending</option>
@@ -292,22 +307,23 @@
                 </div>
 
                 {{-- Date --}}
-                <div class="col-6 col-md-3">
-                    <label class="form-label mb-1 fw-bold text-muted text-uppercase" style="font-size:10px;letter-spacing:1px;">Date</label>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <label class="form-label mb-1 fw-bold text-muted text-uppercase" style="font-size:10px;letter-spacing:1px;">Timeline</label>
                     <input type="date" name="date" value="{{ request('date') }}"
                            class="form-control ba-date">
                 </div>
 
                 {{-- Buttons --}}
-                <div class="col-12 col-md-3 d-flex gap-2 align-items-end justify-content-end justify-content-md-start">
-                    <button type="submit" class="btn btn-ba-blue">
-                        <i class="fa-solid fa-rotate me-1"></i> Sync
-                    </button>
-                    <a href="{{ request()->url() }}" class="btn btn-ba-white">
-                        <i class="fa-solid fa-xmark me-1"></i> Clear
-                    </a>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-ba-blue flex-grow-1 justify-content-center">
+                            <i class="fa-solid fa-rotate me-1"></i> Sync Results
+                        </button>
+                        <a href="{{ request()->url() }}" class="btn btn-ba-white flex-grow-0" title="Clear Filters">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+                    </div>
                 </div>
-
             </div>
         </form>
     </div>

@@ -36,8 +36,9 @@ class BookingController extends Controller
         $totalBookings = Booking::count();
         $todayBookings = Booking::whereDate('booking_date', date('Y-m-d'))->count();
         $totalRevenue = Booking::sum('total_amount');
+        $pendingBookings = Booking::where('status', 'Pending')->count();
 
-        return view('bookings.index', compact('bookings', 'patients', 'testTypes', 'totalBookings', 'todayBookings', 'totalRevenue'));
+        return view('bookings.index', compact('bookings', 'patients', 'testTypes', 'totalBookings', 'todayBookings', 'totalRevenue', 'pendingBookings'));
     }
 
     public function store(Request $request)

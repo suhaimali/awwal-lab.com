@@ -13,9 +13,19 @@ class DoctorController extends Controller
         
         if ($request->filled('search')) {
             $search = $request->input('search');
-            $query->where('name', 'like', "%$search%")
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
                   ->orWhere('specialization', 'like', "%$search%")
                   ->orWhere('phone', 'like', "%$search%");
+            });
+        }
+
+        if ($request->filled('from_date')) {
+            $query->whereDate('created_at', '>=', $request->input('from_date'));
+        }
+
+        if ($request->filled('to_date')) {
+            $query->whereDate('created_at', '<=', $request->input('to_date'));
         }
 
         $doctors = $query->get();
