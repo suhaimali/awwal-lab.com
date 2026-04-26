@@ -15,6 +15,31 @@
         </div>
     </div>
 
+    <!-- Responsive Filter Bar -->
+    <div class="card border-0 shadow-sm mb-4 px-3 py-2" style="border-radius: 20px; background: #fff;">
+        <form method="GET">
+            <div class="row g-3 align-items-center">
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="position-relative">
+                        <i class="fa-solid fa-magnifying-glass position-absolute text-primary" style="left:15px;top:50%;transform:translateY(-50%);"></i>
+                        <input type="text" name="search" value="{{ request('search') }}" 
+                               class="form-control border-0 ps-5 py-2 shadow-none" 
+                               placeholder="Search by name, specialization, or phone..."
+                               style="border-radius: 12px; background: #f8fafc; height: 48px;">
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1 fw-bold shadow-sm" style="border-radius: 12px; height: 48px; background: #1e3a8a; border: none;">
+                        <i class="fa-solid fa-filter me-2"></i>Filter
+                    </button>
+                    <a href="{{ route('admin.doctors.index') }}" class="btn btn-light fw-bold" style="border-radius: 12px; height: 48px; width: 48px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
     @if(session('success'))
         <div class="alert alert-soft-success border-0 shadow-sm mb-4 d-flex align-items-center" style="border-radius: 16px;">
             <i class="fa-solid fa-circle-check fs-5 me-3"></i>
@@ -69,7 +94,15 @@
                                         title="Edit">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
+                                <button type="button" class="btn btn-sm btn-white border shadow-none text-danger" 
+                                        onclick="if(confirm('Are you sure? This will remove the doctor from the network.')) document.getElementById('delete-doctor-{{ $doctor->id }}').submit();"
+                                        title="Delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
                             </div>
+                            <form id="delete-doctor-{{ $doctor->id }}" action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST" style="display: none;">
+                                @csrf @method('DELETE')
+                            </form>
                         </td>
                     </tr>
 

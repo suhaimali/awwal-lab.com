@@ -7,9 +7,18 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $doctors = Doctor::orderBy('name')->get();
+        $query = Doctor::orderBy('name');
+        
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', "%$search%")
+                  ->orWhere('specialization', 'like', "%$search%")
+                  ->orWhere('phone', 'like', "%$search%");
+        }
+
+        $doctors = $query->get();
         return view('doctors.index', compact('doctors'));
     }
 
