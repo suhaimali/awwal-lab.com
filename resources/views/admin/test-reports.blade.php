@@ -1,127 +1,92 @@
 @extends('layouts.app')
 
-@push('styles')
-<style>
-    .animate-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    
-    .hero-gradient {
-        background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.05), transparent),
-                    radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.05), transparent);
-        border-radius: 40px;
-    }
-
-    .feature-card {
-        transition: all 0.3s ease;
-        border: 1px solid rgba(0,0,0,0.05);
-    }
-    .feature-card:hover {
-        transform: translateY(-5px);
-        background: #ffffff;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.05) !important;
-    }
-
-    .progress-custom {
-        height: 10px;
-        background: #e2e8f0;
-        border-radius: 20px;
-        overflow: hidden;
-    }
-    .progress-bar-custom {
-        background: linear-gradient(90deg, #2563eb, #10b981);
-        border-radius: 20px;
-    }
-
-    .pulse-blue {
-        animation: pulse-blue 2s infinite;
-        border-radius: 50%;
-    }
-    @keyframes pulse-blue {
-        0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
-        70% { box-shadow: 0 0 0 20px rgba(37, 99, 235, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
-    }
-</style>
-@endpush
-
 @section('content')
-<div class="container-fluid py-5 px-4 animate-in">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <!-- Hero Section -->
-            <div class="hero-gradient p-5 text-center mb-5 border">
-                <div class="mb-4">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-white pulse-blue" style="width: 100px; height: 100px;">
-                        <i class="fa-solid fa-microscope fs-1 text-primary"></i>
-                    </div>
-                </div>
-                
-                <span class="badge bg-soft-primary text-primary px-3 py-2 rounded-pill fw-bold mb-3">
-                    <i class="fa-solid fa-clock me-2"></i>MODULE COMING SOON
-                </span>
-                
-                <h1 class="display-4 fw-black mb-3" style="color: #0f172a;">Diagnostic <span class="text-primary">Reports</span></h1>
-                <p class="text-muted fs-5 mb-5 mx-auto" style="max-width: 600px;">
-                    We are putting the final touches on the new reporting system. This module will be live shortly with advanced clinical features.
-                </p>
-
-                <!-- Development Progress -->
-                <div class="mx-auto mb-5" style="max-width: 450px;">
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-bold text-dark">System Integration</span>
-                        <span class="fw-bold text-primary">85%</span>
-                    </div>
-                    <div class="progress-custom">
-                        <div class="progress-bar-custom h-100" style="width: 85%"></div>
-                    </div>
-                </div>
-
-                <div class="d-flex gap-3 justify-content-center">
-                    <a href="{{ route('dashboard') }}" class="btn btn-dark px-4 py-3 fw-bold rounded-pill">
-                        <i class="fa-solid fa-arrow-left me-2"></i> Return to Command Center
-                    </a>
-                    <button class="btn btn-primary px-4 py-3 fw-bold rounded-pill shadow-primary">
-                        <i class="fa-solid fa-bell me-2"></i> Notify Me on Launch
-                    </button>
-                </div>
+<div class="container-fluid p-0 d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="text-center animate-in" style="max-width: 600px;">
+        <!-- Vibrant Pulse Animation -->
+        <div class="maintenance-icon-wrapper mb-5 position-relative d-inline-block">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring-outer"></div>
+            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center shadow-lg position-relative" style="width: 120px; height: 120px; background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%) !important;">
+                <i class="fa-solid fa-screwdriver-wrench text-white fs-1"></i>
             </div>
+        </div>
 
-            <!-- Features Teaser Grid -->
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card feature-card border-0 shadow-sm h-100 p-4" style="border-radius: 28px; background: rgba(255,255,255,0.6);">
-                        <div class="rounded-4 bg-soft-primary text-primary d-flex align-items-center justify-content-center mb-4" style="width: 54px; height: 54px;">
-                            <i class="fa-solid fa-file-waveform fs-4"></i>
+        <h1 class="fw-black mb-3" style="color: #0f172a; font-size: 42px; letter-spacing: -2px;">Module <span class="text-primary">Under Construction</span></h1>
+        <p class="text-muted fs-5 mb-5 px-4">
+            Our engineering team is currently architecting a next-gen clinical experience. Detailed analytics and AI-powered insights are coming to this module shortly.
+        </p>
+
+        <div class="row g-3 mb-5 text-start px-4">
+            <div class="col-md-6">
+                <div class="p-3 rounded-4 bg-white shadow-sm border border-light">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-3 p-2 bg-soft-primary text-primary"><i class="fa-solid fa-bolt"></i></div>
+                        <div>
+                            <div class="fw-bold small">Core Performance</div>
+                            <div class="text-muted" style="font-size: 10px;">Optimizing SQL engine</div>
                         </div>
-                        <h5 class="fw-bold text-dark">Automated Analysis</h5>
-                        <p class="text-muted small mb-0">High-speed processing of laboratory results with automated clinical flagging for abnormal ranges.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card feature-card border-0 shadow-sm h-100 p-4" style="border-radius: 28px; background: rgba(255,255,255,0.6);">
-                        <div class="rounded-4 bg-soft-success text-success d-flex align-items-center justify-content-center mb-4" style="width: 54px; height: 54px;">
-                            <i class="fa-solid fa-cloud-arrow-up fs-4"></i>
-                        </div>
-                        <h5 class="fw-bold text-dark">Instant Cloud Sync</h5>
-                        <p class="text-muted small mb-0">Direct synchronization with patient records and instant PDF generation for digital distribution.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card feature-card border-0 shadow-sm h-100 p-4" style="border-radius: 28px; background: rgba(255,255,255,0.6);">
-                        <div class="rounded-4 bg-soft-warning text-warning d-flex align-items-center justify-content-center mb-4" style="width: 54px; height: 54px;">
-                            <i class="fa-solid fa-shield-halved fs-4"></i>
-                        </div>
-                        <h5 class="fw-bold text-dark">Verified Security</h5>
-                        <p class="text-muted small mb-0">Multi-layer encryption ensuring all diagnostic data meets clinical confidentiality standards.</p>
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="p-3 rounded-4 bg-white shadow-sm border border-light">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-3 p-2 bg-soft-success text-success"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <div class="fw-bold small">Security Patch</div>
+                            <div class="text-muted" style="font-size: 10px;">v4.5.2 Protocols</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <a href="{{ route('dashboard') }}" class="btn btn-primary px-5 py-3 fw-bold shadow-lg" style="border-radius: 16px; background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); border: none;">
+                <i class="fa-solid fa-arrow-left me-2"></i> Return to Control Center
+            </a>
         </div>
     </div>
 </div>
 
 <style>
     .fw-black { font-weight: 900; }
-    .shadow-primary { box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2); }
+    .bg-soft-primary { background: rgba(37, 99, 235, 0.1); }
+    .bg-soft-success { background: rgba(16, 185, 129, 0.1); }
+    
+    .pulse-ring {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 120px;
+        height: 120px;
+        background: rgba(37, 99, 235, 0.2);
+        border-radius: 50%;
+        animation: pulse 2s infinite ease-out;
+    }
+    .pulse-ring-outer {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 140px;
+        height: 140px;
+        background: rgba(37, 99, 235, 0.1);
+        border-radius: 50%;
+        animation: pulse 2s infinite ease-out 0.5s;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(0.95); opacity: 0.8; }
+        100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    .animate-in {
+        animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 </style>
 @endsection
