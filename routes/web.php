@@ -70,22 +70,21 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/support', [\App\Http\Controllers\SupportController::class, 'index'])->name('support.index');
         Route::post('/support/ticket', [\App\Http\Controllers\SupportController::class, 'submitTicket'])->name('support.submit');
 
-        // Analysis & Reporting (Restricted to Admin for financial audit?)
+        // Management (Restricted to Admin)
         Route::middleware(['role:admin'])->group(function () {
-            // Management
             Route::resource('users', UserController::class);
+        });
 
-            // Backup & Restore System
-            Route::prefix('backup')->name('backup.')->group(function () {
-                Route::get('/', [\App\Http\Controllers\BackupController::class, 'index'])->name('index');
-                Route::post('/create', [\App\Http\Controllers\BackupController::class, 'backup'])->name('create');
-                Route::post('/restore', [\App\Http\Controllers\BackupController::class, 'restore'])->name('restore');
-                Route::post('/import', [\App\Http\Controllers\BackupController::class, 'import'])->name('import');
-                Route::get('/download/{filename}', [\App\Http\Controllers\BackupController::class, 'download'])->name('download');
-                Route::delete('/delete/{filename}', [\App\Http\Controllers\BackupController::class, 'delete'])->name('delete');
-                Route::get('/stats', [\App\Http\Controllers\BackupController::class, 'stats'])->name('stats');
-                Route::get('/export-csv', [\App\Http\Controllers\BackupController::class, 'exportCsv'])->name('export-csv');
-            });
+        // Backup & Restore System (Accessible by Admin and Staff)
+        Route::prefix('backup')->name('backup.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\BackupController::class, 'index'])->name('index');
+            Route::post('/create', [\App\Http\Controllers\BackupController::class, 'backup'])->name('create');
+            Route::post('/restore', [\App\Http\Controllers\BackupController::class, 'restore'])->name('restore');
+            Route::post('/import', [\App\Http\Controllers\BackupController::class, 'import'])->name('import');
+            Route::get('/download/{filename}', [\App\Http\Controllers\BackupController::class, 'download'])->name('download');
+            Route::delete('/delete/{filename}', [\App\Http\Controllers\BackupController::class, 'delete'])->name('delete');
+            Route::get('/stats', [\App\Http\Controllers\BackupController::class, 'stats'])->name('stats');
+            Route::get('/export-csv', [\App\Http\Controllers\BackupController::class, 'exportCsv'])->name('export-csv');
         });
     });
 

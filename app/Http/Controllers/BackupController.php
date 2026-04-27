@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 
 class BackupController extends Controller
 {
@@ -239,7 +240,7 @@ class BackupController extends Controller
         // Get DB size
         $database = config('database.connections.mysql.database');
         $dbSize = DB::select("SELECT SUM(data_length + index_length) as size FROM information_schema.tables WHERE table_schema = ?", [$database]);
-        $dbSizeBytes = $dbSize[0]->size ?? 0;
+        $dbSizeBytes = (!empty($dbSize) && isset($dbSize[0]->size)) ? $dbSize[0]->size : 0;
 
         // Get storage size
         $storagePath = storage_path('app');
@@ -256,7 +257,7 @@ class BackupController extends Controller
             'db_size' => $this->formatBytes($dbSizeBytes),
             'storage_size' => $this->formatBytes($storageSize),
             'last_backup' => $latestBackup ? date('d M, Y • h:i A', $latestBackup->getMTime()) : 'Never',
-            'last_backup_ago' => $latestBackup ? \Carbon\Carbon::createFromTimestamp($latestBackup->getMTime())->diffForHumans() : 'No backups yet',
+            'last_backup_ago' => $latestBackup ? Carbon::createFromTimestamp($latestBackup->getMTime())->diffForHumans() : 'No backups yet',
         ]);
     }
 

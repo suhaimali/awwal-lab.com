@@ -69,7 +69,7 @@ class DashboardController extends Controller
             return view('dashboards.admin', compact('totalLabs', 'totalEquipment', 'totalUsers', 'totalPatients', 'totalReports', 'activities', 'tasks', 'performanceScore', 'systemIncome', 'testsCompleted'));
         } elseif ($user->role === 'staff') {
             $sessionCollection = \App\Models\Booking::whereDate('created_at', today())->sum('advance_amount');
-            return view('dashboards.staff', compact('pendingReports', 'completedReportsToday', 'todayBookings', 'activities', 'tasks', 'sessionCollection'));
+            return view('dashboards.staff', compact('pendingReports', 'completedReportsToday', 'todayBookings', 'activities', 'tasks', 'sessionCollection', 'totalLabs', 'totalEquipment', 'totalUsers', 'totalPatients', 'totalReports', 'performanceScore', 'systemIncome', 'testsCompleted'));
         }
         
         return redirect('/');
