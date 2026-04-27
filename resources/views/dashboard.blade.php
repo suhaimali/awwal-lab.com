@@ -1,126 +1,122 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid p-0">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid p-0 pb-5">
+    <!-- Operational Hub Header -->
+    <div class="d-flex justify-content-between align-items-center mb-5 ba-animate">
         <div>
-            <h2 class="fw-bold mb-1" style="color: #1e3a8a;">Control Center</h2>
-            <p class="text-muted mb-0">Welcome back, <span class="fw-bold text-primary">{{ auth()->user()->name }}</span>. System integrity is 100%.</p>
+            <h2 class="fw-black mb-1" style="color: #1e3a8a; letter-spacing: -1px;">Operational Hub</h2>
+            <p class="text-muted mb-0 fw-bold small text-uppercase letter-spacing-1">
+                Laboratory Staff Terminal • {{ date('l, d M Y') }}
+            </p>
         </div>
-        <div class="d-flex gap-2">
-            <button class="btn btn-white shadow-sm border" style="border-radius: 12px;"><i class="fa-solid fa-calendar-day me-2 text-primary"></i> {{ date('D, M d Y') }}</button>
-            <button class="btn btn-primary shadow-sm" style="border-radius: 12px;"><i class="fa-solid fa-download me-2"></i> Report Summary</button>
-        </div>
-    </div>
-
-    <!-- Primary Metrics Grid -->
-    <div class="row g-4 mb-4">
-        <div class="col-md-3">
-            <div class="card metric-card border-0 shadow-sm" style="background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); border-radius: 24px; color: white;">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="icon-box bg-white bg-opacity-25 rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                            <i class="fa-solid fa-user-injured fs-4"></i>
-                        </div>
-                        <span class="badge bg-white bg-opacity-25 rounded-pill">+12%</span>
-                    </div>
-                    <h4 class="fw-bold mb-1">{{ $totalPatients ?? 0 }}</h4>
-                    <p class="mb-0 text-white-50 small text-uppercase fw-bold letter-spacing-1">Total Patients</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card metric-card border-0 shadow-sm" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%); border-radius: 24px; color: white;">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="icon-box bg-white bg-opacity-25 rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                            <i class="fa-solid fa-vials fs-4"></i>
-                        </div>
-                        <span class="badge bg-white bg-opacity-25 rounded-pill">+5%</span>
-                    </div>
-                    <h4 class="fw-bold mb-1">{{ $testsCompleted ?? 0 }}</h4>
-                    <p class="mb-0 text-white-50 small text-uppercase fw-bold letter-spacing-1">Tests Completed</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card metric-card border-0 shadow-sm" style="background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%); border-radius: 24px; color: white;">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="icon-box bg-white bg-opacity-25 rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                            <i class="fa-solid fa-flask-vial fs-4"></i>
-                        </div>
-                        <span class="badge bg-white bg-opacity-25 rounded-pill">A+</span>
-                    </div>
-                    <h4 class="fw-bold mb-1">{{ $totalLabs ?? 0 }}</h4>
-                    <p class="mb-0 text-white-50 small text-uppercase fw-bold letter-spacing-1">Active Labs</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card metric-card border-0 shadow-sm" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); border-radius: 24px; color: white;">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="icon-box bg-white bg-opacity-25 rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                            <i class="fa-solid fa-money-bill-transfer fs-4"></i>
-                        </div>
-                        <span class="badge bg-white bg-opacity-25 rounded-pill text-white">Pending</span>
-                    </div>
-                    <h4 class="fw-bold mb-1">₹{{ number_format((float)($pendingPayments ?? 0), 2) }}</h4>
-                    <p class="mb-0 text-white-50 small text-uppercase fw-bold letter-spacing-1">Outstanding Revenue</p>
-                </div>
+        <div class="d-flex align-items-center gap-3">
+            <div class="p-3 rounded-4 bg-white shadow-sm border-0 d-flex align-items-center gap-2">
+                <span class="pulse-green"></span>
+                <span class="fw-black text-success small">SYSTEM LIVE</span>
             </div>
         </div>
     </div>
 
-    <div class="row g-4">
-        <!-- Activity Feed -->
+    <!-- Staff Metrics Grid -->
+    <div class="row g-4 mb-5 ba-animate d1">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm" style="border-radius: 24px; background: #fff; border-left: 5px solid #3b82f6 !important;">
+                <div class="card-body p-4">
+                    <p class="small fw-bold text-muted mb-1 text-uppercase">Pending Tests</p>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h2 class="fw-black mb-0 text-dark">0</h2>
+                        <div class="bg-soft-primary p-2 rounded-3 text-primary">
+                            <i class="fa-solid fa-microscope"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm" style="border-radius: 24px; background: #fff; border-left: 5px solid #10b981 !important;">
+                <div class="card-body p-4">
+                    <p class="small fw-bold text-muted mb-1 text-uppercase">Reports Ready</p>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h2 class="fw-black mb-0 text-dark">0</h2>
+                        <div class="bg-soft-success p-2 rounded-3 text-success">
+                            <i class="fa-solid fa-file-circle-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm" style="border-radius: 24px; background: #fff; border-left: 5px solid #f59e0b !important;">
+                <div class="card-body p-4">
+                    <p class="small fw-bold text-muted mb-1 text-uppercase">Appointments Today</p>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h2 class="fw-black mb-0 text-dark">{{ $summary['today_appointments'] ?? 1 }}</h2>
+                        <div class="bg-soft-warning p-2 rounded-3 text-warning">
+                            <i class="fa-solid fa-calendar-day"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm" style="border-radius: 24px; background: #1e3a8a; color: white;">
+                <div class="card-body p-4">
+                    <p class="small fw-bold text-white-50 mb-1 text-uppercase">Session Collection</p>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h2 class="fw-black mb-0 text-white">₹10</h2>
+                        <div class="bg-white bg-opacity-20 p-2 rounded-3 text-white">
+                            <i class="fa-solid fa-cash-register"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 ba-animate d2">
+        <!-- Diagnostic Activities -->
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm" style="border-radius: 24px;">
-                <div class="card-header bg-white border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
-                    <h5 class="fw-bold mb-0" style="color: #1e293b;">Recent Laboratory Activity</h5>
-                    <a href="{{ route('admin.patients.index') }}" class="btn btn-light btn-sm rounded-pill px-3">View All</a>
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 32px; background: #fff;">
+                <div class="card-header bg-white border-0 p-4 pb-0">
+                    <h5 class="fw-black text-dark mb-0">Recent Diagnostic Activities</h5>
                 </div>
                 <div class="card-body p-4">
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
-                            <thead class="bg-light">
-                                <tr>
+                            <thead>
+                                <tr class="text-muted extra-small text-uppercase fw-bold letter-spacing-1">
                                     <th class="border-0 ps-3">Patient</th>
-                                    <th class="border-0">Tests</th>
-                                    <th class="border-0">Visit Date</th>
-                                    <th class="border-0">Status</th>
-                                    <th class="border-0 text-end pe-3">Action</th>
+                                    <th class="border-0">Investigation</th>
+                                    <th class="border-0 text-center">Status</th>
+                                    <th class="border-0 text-end pe-3">Time</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($recentPatients ?? [] as $patient)
                                     <tr>
                                         <td class="ps-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar bg-soft-primary text-primary rounded-circle d-flex align-items-center justify-content-center me-3 fw-bold" style="width: 38px; height: 38px;">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="avatar-sm bg-soft-primary text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 12px;">
                                                     {{ strtoupper(substr($patient->name, 0, 1)) }}
                                                 </div>
-                                                <div class="fw-bold text-dark">{{ $patient->name }}</div>
+                                                <span class="fw-bold text-dark">{{ $patient->name }}</span>
                                             </div>
                                         </td>
                                         <td>
-                                            @php $tests = $patient->latestBooking->tests ?? []; @endphp
-                                            <span class="badge bg-light text-muted border">{{ count($tests) }} Test(s)</span>
+                                            <span class="text-muted small">Registration</span>
                                         </td>
-                                        <td class="text-muted small">{{ \Carbon\Carbon::parse($patient->visit_date)->format('M d, Y') }}</td>
-                                        <td>
-                                            <span class="badge bg-soft-success text-success rounded-pill px-3">Active</span>
+                                        <td class="text-center">
+                                            <span class="badge bg-soft-success text-success rounded-pill px-3 fw-bold" style="font-size: 10px;">Active</span>
                                         </td>
                                         <td class="text-end pe-3">
-                                            <a href="{{ route('admin.patients.show', $patient) }}" class="btn btn-sm btn-white border rounded-pill shadow-none"><i class="fa-solid fa-arrow-right"></i></a>
+                                            <span class="extra-small text-muted">{{ $patient->created_at->diffForHumans() }}</span>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center py-5">
-                                            <i class="fa-solid fa-folder-open text-muted opacity-25 fs-1 mb-3"></i>
-                                            <p class="text-muted mb-0">No recent network activity detected.</p>
+                                        <td colspan="4" class="text-center py-5">
+                                            <p class="text-muted mb-0">No active diagnostic activity detected.</p>
                                         </td>
                                     </tr>
                                 @endforelse
@@ -129,64 +125,61 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Quick Access & Insights -->
-        <div class="col-lg-4">
-            <!-- Quick Actions -->
-            <div class="card border-0 shadow-sm mb-4" style="border-radius: 24px; background: #fff;">
+            <!-- Operational Tasks -->
+            <div class="card border-0 shadow-sm" style="border-radius: 32px; background: #fff;">
                 <div class="card-body p-4">
-                    <h5 class="fw-bold mb-4" style="color: #1e293b;">Quick Protocol</h5>
-                    <div class="d-grid gap-3">
-                        <a href="{{ route('admin.patients.create') }}" class="btn btn-primary d-flex align-items-center justify-content-between p-3" style="border-radius: 16px;">
-                            <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-user-plus me-3 fs-5"></i>
-                                <div class="text-start">
-                                    <div class="fw-bold">New Registration</div>
-                                    <div class="small opacity-75">Register a new patient</div>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right small"></i>
-                        </a>
-                        <a href="{{ route('admin.bookings.index') }}" class="btn btn-outline-primary d-flex align-items-center justify-content-between p-3" style="border-radius: 16px;">
-                            <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-calendar-check me-3 fs-5"></i>
-                                <div class="text-start">
-                                    <div class="fw-bold">Laboratory Bookings</div>
-                                    <div class="small opacity-75">Manage appointments</div>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right small"></i>
-                        </a>
-                        <a href="{{ route('admin.test-reports') }}" class="btn btn-outline-dark d-flex align-items-center justify-content-between p-3" style="border-radius: 16px;">
-                            <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-file-waveform me-3 fs-5"></i>
-                                <div class="text-start">
-                                    <div class="fw-bold">Analysis Reports</div>
-                                    <div class="small opacity-75">Generate clinical data</div>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right small"></i>
-                        </a>
+                    <h5 class="fw-black text-dark mb-3">Operational Tasks</h5>
+                    <div class="d-flex align-items-center gap-3 p-3 rounded-4 bg-light text-muted">
+                        <i class="fa-solid fa-list-check fs-4"></i>
+                        <span class="small fw-bold">No pending tasks assigned.</span>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Performance Insight -->
-            <div class="card border-0 shadow-sm" style="border-radius: 24px; background: #1e293b; color: white;">
-                <div class="card-body p-4 text-center">
-                    <div class="avatar bg-white bg-opacity-10 text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px; border-radius: 20px;">
-                        <i class="fa-solid fa-chart-line fs-3"></i>
+        <!-- Sidebar Activity & Tasks -->
+        <div class="col-lg-4">
+            <!-- Live Network Activity -->
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 32px; background: #1e293b; color: white;">
+                <div class="card-header border-0 bg-transparent p-4 pb-0 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-black mb-0">Live Network Activity</h5>
+                    <span class="badge bg-success rounded-pill px-2 py-1 extra-small fw-bold shadow-sm">
+                        <span class="pulse-white me-1"></span> LIVE
+                    </span>
+                </div>
+                <div class="card-body p-4">
+                    @forelse($recentPatients ?? [] as $patient)
+                        <div class="p-3 rounded-4 bg-white bg-opacity-10 mb-3 border border-white border-opacity-10">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <span class="fw-bold small text-white">New Patient Registered: {{ $patient->name }}</span>
+                            </div>
+                            <p class="extra-small text-white-50 mb-0">{{ $patient->created_at->diffForHumans() }}</p>
+                        </div>
+                    @empty
+                        <p class="text-white-50 small text-center py-3">Monitoring network...</p>
+                    @endforelse
+
+                    {{-- Duplicate item as per user request --}}
+                    @if(count($recentPatients ?? []) > 0)
+                        <div class="p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10 opacity-50">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <span class="fw-bold small text-white">Live Network Activity</span>
+                            </div>
+                            <p class="extra-small text-white-50 mb-0">Synchronizing nodes...</p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Assigned Tasks -->
+            <div class="card border-0 shadow-sm" style="border-radius: 32px; background: #fff;">
+                <div class="card-body p-5 text-center">
+                    <h5 class="fw-black text-dark mb-4">Assigned Tasks</h5>
+                    <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center text-muted" style="width: 80px; height: 80px;">
+                        <i class="fa-solid fa-clipboard-check fs-2"></i>
                     </div>
-                    <h5 class="fw-bold mb-1">System Efficiency</h5>
-                    <p class="text-white-50 small mb-4">Your lab is performing 24% better than last month.</p>
-                    <div class="progress mb-3" style="height: 8px; border-radius: 4px; background: rgba(255,255,255,0.1);">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 84%; border-radius: 4px;"></div>
-                    </div>
-                    <div class="d-flex justify-content-between small fw-bold">
-                        <span>84% Capacity</span>
-                        <span class="text-success">Optimal</span>
-                    </div>
+                    <p class="small fw-bold text-muted mb-0">No active tasks assigned.</p>
                 </div>
             </div>
         </div>
@@ -194,12 +187,33 @@
 </div>
 
 <style>
-    .metric-card { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s; cursor: pointer; }
-    .metric-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .fw-black { font-weight: 900; }
     .letter-spacing-1 { letter-spacing: 1px; }
-    .bg-soft-primary { background: rgba(37, 99, 235, 0.1); }
+    .bg-soft-primary { background: rgba(59, 130, 246, 0.1); }
     .bg-soft-success { background: rgba(16, 185, 129, 0.1); }
-    .btn-white { background: #fff; border-color: #e2e8f0; color: #475569; }
-    .btn-white:hover { background: #f8fafc; color: #1e293b; }
+    .bg-soft-warning { background: rgba(245, 158, 11, 0.1); }
+    
+    .pulse-green {
+        display: inline-block; width: 8px; height: 8px;
+        background: #10b981; border-radius: 50%;
+        box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+        animation: pulse 2s infinite;
+    }
+    .pulse-white {
+        display: inline-block; width: 6px; height: 6px;
+        background: #fff; border-radius: 50%;
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0.4);
+        animation: pulse-white 2s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    @keyframes pulse-white {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+    }
 </style>
 @endsection

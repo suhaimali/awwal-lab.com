@@ -34,19 +34,10 @@ class PatientController extends Controller
         $doctors   = \App\Models\Doctor::all();
         $patients  = $query->with(['latestBooking'])->orderBy('created_at', 'desc')->paginate(10);
 
-        // Summary totals for filtered set
-        $summaryQuery    = clone $query;
-        $allPatientsIds  = $summaryQuery->pluck('id');
-        $latestBookings  = \App\Models\Booking::whereIn('patient_id', $allPatientsIds)
-            ->whereIn('id', function ($q) {
-                $q->selectRaw('max(id)')->from('bookings')->groupBy('patient_id');
-            })->get();
-
         $summary = [
-            'total_bill'     => $latestBookings->sum('total_amount'),
-            'total_discount' => $latestBookings->sum('discount'),
-            'total_advance'  => $latestBookings->sum('advance_amount'),
-            'total_balance'  => $latestBookings->sum('balance_amount'),
+            'total_patients'        => Patient::count(),
+            'today_appointments'    => Patient::whereDate('visit_date', date('Y-m-d'))->count(),
+            'upcoming_appointments' => Patient::whereDate('visit_date', '>', date('Y-m-d'))->count(),
         ];
 
         return view('patients.index', compact('patients', 'testTypes', 'summary', 'doctors'));
@@ -68,8 +59,8 @@ class PatientController extends Controller
             'reference_dr_name' => 'nullable|string|max:255',
             'visit_date'        => 'required|date',
             'notes'             => 'nullable|string',
-            'tests'             => 'required|array',
-            'total_amount'      => 'required|numeric',
+            'tests'             => 'nullable|array',
+            'total_amount'      => 'nullable|numeric',
             'discount'          => 'nullable|numeric',
             'advance_amount'    => 'nullable|numeric',
             'balance_amount'    => 'nullable|numeric',
@@ -104,10 +95,10 @@ class PatientController extends Controller
             'lab_id'         => $patient->lab_id,
             'booking_id'     => 'BK-' . strtoupper(uniqid()),
             'bill_no'        => $billNo,
-            'tests'          => $request->tests,
             'booking_date'   => $request->visit_date,
-            'amount'         => $request->total_amount,
-            'total_amount'   => $request->total_amount,
+            'tests'          => $request->tests,
+            'amount'         => $request->total_amount ?? 0,
+            'total_amount'   => $request->total_amount ?? 0,
             'discount'       => $request->discount ?? 0,
             'advance_amount' => $request->advance_amount ?? 0,
             'balance_amount' => $request->balance_amount ?? 0,
@@ -135,8 +126,8 @@ class PatientController extends Controller
             'reference_dr_name' => 'nullable|string|max:255',
             'visit_date'        => 'required|date',
             'notes'             => 'nullable|string',
-            'tests'             => 'required|array',
-            'total_amount'      => 'required|numeric',
+            'tests'             => 'nullable|array',
+            'total_amount'      => 'nullable|numeric',
             'discount'          => 'nullable|numeric',
             'advance_amount'    => 'nullable|numeric',
             'balance_amount'    => 'nullable|numeric',
@@ -181,11 +172,11 @@ class PatientController extends Controller
         $booking->update([
             'tests'          => $request->tests,
             'booking_date'   => $request->visit_date,
-            'amount'         => $request->total_amount,
-            'total_amount'   => $request->total_amount,
-            'discount'       => $request->discount ?? 0,
-            'advance_amount' => $request->advance_amount ?? 0,
-            'balance_amount' => $request->balance_amount ?? 0,
+            'amount'         => $request->total_amount ?? $booking->amount ?? 0,
+            'total_amount'   => $request->total_amount ?? $booking->total_amount ?? 0,
+            'discount'       => $request->discount ?? $booking->discount ?? 0,
+            'advance_amount' => $request->advance_amount ?? $booking->advance_amount ?? 0,
+            'balance_amount' => $request->balance_amount ?? $booking->balance_amount ?? 0,
             'reporting_date' => $request->reporting_date,
         ]);
 
