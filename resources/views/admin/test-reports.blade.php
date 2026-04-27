@@ -35,9 +35,6 @@
             <p class="text-muted mb-0">Monitor investigation lifecycles and finalize clinical outcomes.</p>
         </div>
         <div class="d-flex gap-2">
-            <button type="button" class="btn btn-white shadow-sm border px-4" style="border-radius: 14px; height: 48px;" data-bs-toggle="modal" data-bs-target="#updateNoticeModal">
-                <i class="fa-solid fa-bell me-2 text-warning"></i> System Status
-            </button>
             <button type="button" class="btn btn-primary shadow-primary px-4 fw-bold" style="border-radius: 14px; height: 48px;" data-bs-toggle="modal" data-bs-target="#newReportModal">
                 <i class="fa-solid fa-plus-circle me-2"></i> Initialize Analysis
             </button>
@@ -218,13 +215,9 @@
             </div>
         </div>
     </div>
-</div>
-@include('admin.partials.report-modals')
-
+</div>@include('admin.partials.report-modals')
 
 <style>
     .fw-black { font-weight: 900; }
-    .animate-bounce { animation: bounce 2s infinite; }
-    @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-15px);} 60% {transform: translateY(-7px);} }
 </style>
 @endsection
