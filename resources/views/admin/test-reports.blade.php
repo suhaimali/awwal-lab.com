@@ -57,12 +57,12 @@
                 </div>
                 
                 <span class="badge bg-soft-primary text-primary px-3 py-2 rounded-pill fw-bold mb-3">
-                    <i class="fa-solid fa-rocket me-2"></i>MODULE EVOLUTION IN PROGRESS
+                    <i class="fa-solid fa-clock me-2"></i>MODULE COMING SOON
                 </span>
                 
-                <h1 class="display-4 fw-black mb-3" style="color: #0f172a;">Advanced <span class="text-primary">Diagnostics</span></h1>
+                <h1 class="display-4 fw-black mb-3" style="color: #0f172a;">Diagnostic <span class="text-primary">Reports</span></h1>
                 <p class="text-muted fs-5 mb-5 mx-auto" style="max-width: 600px;">
-                    We are currently engineering a high-precision reporting engine. Soon, you'll be able to manage clinical outcomes with AI-assisted insights and seamless patient integration.
+                    We are putting the final touches on the new reporting system. This module will be live shortly with advanced clinical features.
                 </p>
 
                 <!-- Development Progress -->
