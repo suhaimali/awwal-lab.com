@@ -200,9 +200,15 @@
                         @empty
                         <tr>
                             <td colspan="5" class="text-center py-5">
-                                <div class="py-5">
-                                    <i class="fa-solid fa-vials fs-1 text-muted opacity-25 mb-4"></i>
-                                    <h4 class="fw-bold">No Records Found</h4>
+                                <div class="py-5 animate-in">
+                                    <div class="rounded-circle bg-soft-primary d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px; background: rgba(37, 99, 235, 0.1);">
+                                        <i class="fa-solid fa-vials fs-1 text-primary"></i>
+                                    </div>
+                                    <h4 class="fw-bold" style="color: #0f172a;">Queue is Empty</h4>
+                                    <p class="text-muted mb-4 mx-auto" style="max-width: 400px;">No diagnostic reports have been initialized yet. Start by selecting an active booking from the clinical pool.</p>
+                                    <button type="button" class="btn btn-primary px-4 py-3 fw-bold rounded-pill shadow-primary" style="border-radius: 14px;" data-bs-toggle="modal" data-bs-target="#newReportModal">
+                                        <i class="fa-solid fa-plus-circle me-2"></i> Initialize First Analysis
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -213,39 +219,8 @@
         </div>
     </div>
 </div>
-
-<!-- Update Soon Modal -->
-<div class="modal fade" id="updateNoticeModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content modal-update shadow-lg">
-            <div class="modal-header d-flex justify-content-between align-items-center">
-                <h5 class="modal-title fw-black mb-0">System Notification</h5>
-                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="rounded-circle bg-soft-primary d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px; background: rgba(37, 99, 235, 0.1);">
-                    <i class="fa-solid fa-rocket fs-1 text-primary animate-bounce"></i>
-                </div>
-                <h3 class="fw-black mb-2" style="color: #0f172a;">Updating Soon</h3>
-                <p class="text-muted mb-4">We are currently architecting a next-gen reporting engine. Detailed clinical analytics and AI-powered insights are coming to this module shortly.</p>
-                <button type="button" class="btn btn-primary w-100 py-3 fw-bold rounded-pill shadow-lg border-0" data-bs-dismiss="modal">Acknowledge & Continue</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 @include('admin.partials.report-modals')
 
-<script>
-    // Auto-show the modal on load if they haven't seen it
-    document.addEventListener('DOMContentLoaded', function() {
-        if (!localStorage.getItem('report_update_seen')) {
-            const myModal = new bootstrap.Modal(document.getElementById('updateNoticeModal'));
-            myModal.show();
-            localStorage.setItem('report_update_seen', 'true');
-        }
-    });
-</script>
 
 <style>
     .fw-black { font-weight: 900; }

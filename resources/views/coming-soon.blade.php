@@ -12,9 +12,9 @@
             </div>
         </div>
 
-        <h1 class="fw-black mb-3" style="color: #0f172a; font-size: 42px; letter-spacing: -2px;">Test Report</h1>
+        <h1 class="fw-black mb-3" style="color: #0f172a; font-size: 42px; letter-spacing: -2px;">Module <span class="text-primary">Under Construction</span></h1>
         <p class="text-muted fs-5 mb-5 px-4">
-            Our engineering team is currently pushing a massive update to the <span class="text-primary fw-bold">Suhaim Soft</span> clinical engine. We are re-wiring the core modules to bring you lightning-fast diagnostics.
+            Our engineering team is currently architecting a next-gen clinical experience. Detailed analytics and AI-powered insights are coming to this module shortly.
         </p>
 
         <div class="row g-3 mb-5 text-start px-4">
@@ -42,6 +42,10 @@
             </div>
         </div>
 
+        <div class="mt-5">
+            <a href="{{ route('dashboard') }}" class="btn btn-primary px-5 py-3 fw-bold shadow-lg" style="border-radius: 16px; background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); border: none;">
+                <i class="fa-solid fa-arrow-left me-2"></i> Return to Control Center
+            </a>
         </div>
     </div>
 </div>

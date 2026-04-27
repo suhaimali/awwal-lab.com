@@ -587,7 +587,7 @@
                 <a href="{{ route('admin.bookings.index') }}" class="{{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}"><i class="fa-solid fa-calendar-check me-2"></i> Lab Bookings</a>
                 @endif
                 @if(auth()->user()->hasPermission('diagnostic_reports'))
-                <a href="{{ route('coming-soon') }}" class="{{ request()->routeIs('coming-soon') ? 'active' : '' }}"><i class="fa-solid fa-file-waveform me-2"></i> Test Reports</a>
+                <a href="{{ route('admin.test-reports') }}" class="{{ request()->routeIs('admin.test-reports') ? 'active' : '' }}"><i class="fa-solid fa-file-waveform me-2"></i> Test Reports</a>
                 @endif
                 @if(auth()->user()->hasPermission('report_dispatch'))
                 <a href="{{ route('admin.reports.dispatch') }}" class="{{ request()->routeIs('admin.reports.dispatch') ? 'active' : '' }}"><i class="fa-solid fa-truck-ramp-box me-2"></i> Report Dispatch</a>
